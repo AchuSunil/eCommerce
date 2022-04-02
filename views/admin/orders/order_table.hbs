@@ -1,0 +1,241 @@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover" style="width: 113%;">
+                <thead>
+                    <tr>
+                        <th scope="col">SL.NO</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Product</th>
+                        <th scope="col" class="text-center">Order Qty</th>
+                        <th scope="col" class="text-center">Total Amount</th>
+                         <th scope="col">Payment Method</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Order Date</th>
+                        <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center">Update Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#if orders}}
+                    {{#each orders}}
+                        <tr>
+                            <td>{{increment @index}}</td>
+                            <td>{{this.address.firstname}}</td>
+                            <td>{{this.product.product_name}}</td>
+                            <td class="text-center">{{this.quantity}}</td>
+                            <td class="text-center" id="itemPrice">{{this.totalPrice}}</td>
+                             <td>{{this.payment}}</td>
+                            <td><span>{{this.address.address}}</span>
+                                <br />
+                                <span> {{this.address.state}}</span>
+                                <span> {{this.address.city}}</span><br />
+                                <span>{{this.address.pincode}}</span>
+                            </td>
+                            <td>{{this.orderDate}}</td>
+
+                            {{#if this.cancel}}
+                            <td class="text-danger text-center">
+                                <span class="d-block">{{this.orderStatus}}</span>
+                                 <span class="d-block text-dark mt-2">{{this.cancelDate}} UTC</span>
+                                </td>
+                            {{else}}
+                            {{#if this.deliverStatus}}
+                                         <td class="text-success text-center">
+                                             <span class="d-block">Delivered</span>
+                                             <span class="d-block text-dark mt-2">{{this.deliveredDate}} UTC</span>
+                                        </td>
+                                 {{else}}
+                                 {{#if this.shippedStatus }}
+                                     <td class="text-primary text-center">
+                                         <span id="shippedStatus" class="d-block">Shipped</span>
+                                         <span class="d-block text-dark mt-2" >{{this.shippedDate}} UTC</span>
+                                         </td>
+                                    
+                                        
+                                    {{else}}  
+                                         <td class="text-success text-center">{{this.ordStatus}}</td>   
+                                    {{/if}}
+                                 {{/if}}
+                            {{/if}}
+
+
+                            <td class="text-center">
+                                <a class="btn-sm btn-danger" href="#" onclick="itemCancel(event,'{{this._id}}','{{this.item}}')">Cancel</a>
+                                <a class="btn-sm btn-primary" id="itemShip" href="#" onclick="itemShip(event,'{{this._id}}','{{this.item}}')">Ship</a>
+                                <a class="btn-sm btn-success" href="#" onclick="itemDeliver(event,'{{this._id}}','{{this.item}}')">Deliver</a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    {{else}}
+                    <h4 class="text-center text-danger">No Orders Yet</h4>
+                    {{/if}}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+   
+      
+
+
+    function itemCancel(e,orderId,itemId){
+
+        e.preventDefault();
+        Swal.fire({
+            title: 'Confirm YES !',
+            text: "To Cancel the Order",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'YES'
+        }).then((result)=>{
+             if (result.isConfirmed) {
+                 $.ajax({
+                     type: "post",
+                    url: '/admin/orderCancel',
+                    data: {
+                        orderId: orderId,
+                        itemId: itemId,
+                    },
+                    success: async function(status) {
+                        if (status.status) {
+                            location.reload()
+                            await Swal.fire(
+                                'Cancelled',
+                                'Order has been Cancelled.',
+                                'success'
+                            )
+                        }else{
+                           await Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Order seems Already Cancelled!',
+                             
+                                    })
+                        }
+                    }
+                 })
+             }
+        })
+    }
+
+   function itemShip(e,orderId,itemId){
+
+        e.preventDefault();
+        Swal.fire({
+            title: 'Confirm YES !',
+            text: "To Ship the Order",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'YES'
+        }).then((result)=>{
+             if (result.isConfirmed) {
+                 $.ajax({
+                     type: "post",
+                    url: '/admin/orderShip',
+                    data: {
+                        orderId: orderId,
+                        itemId: itemId,
+                    },
+                    success: async function(status) {
+                        if (status.shippedStatus) {
+                          await  Swal.fire(
+                                'Shipped',
+                                'Order Shipped Successfully.',
+                                'success'
+                            )
+                            location.reload()
+                             
+                        }else if(status.cancelStatus){
+                               await  Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Order seems Cancelled!',
+                             
+                                    })
+                            }else if(status.existShippedStatus){
+                            await  Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Order seems Already Shipped!',
+                             
+                                    })
+                        }
+                    }
+                 })
+             }
+        })
+    }
+
+     function itemDeliver(e,orderId,itemId){
+
+        e.preventDefault();
+        Swal.fire({
+            title: 'Confirm YES !',
+            text: "To Deliver the Order",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'YES'
+        }).then((result)=>{
+             if (result.isConfirmed) {
+                 $.ajax({
+                     type: "post",
+                    url: '/admin/orderDeliver',
+                    data: {
+                        orderId: orderId,
+                        itemId: itemId,
+                    },
+                    success: async function(status) {
+                        if (status.deliverStatus) {
+                            await Swal.fire(
+                                'Delivered',
+                                'Order Delivered Successfully.',
+                                'success'
+                            )
+                            location.reload()
+                             
+                        }else if(status.cancelStatus){
+                            await Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Order seems Cancelled!',
+                             
+                                    })
+                        }else if(status.existDeliverStatus){
+                            await Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Order seems Already Deliver!',
+                             
+                                    })
+                        }else if(status.errorStatus){
+                            await Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Please Make the Shippment First!',
+                             
+                                    })
+                        }
+                    }
+                 })
+             }
+        })
+    }
+    
+</script>
+
+

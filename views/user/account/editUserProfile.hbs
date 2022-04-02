@@ -1,0 +1,154 @@
+<style>
+    .profile-pic img{
+   
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 0px #c1c1c1;
+    cursor: pointer;
+    width: 110px;
+    height: 110px;
+}  
+.profile-pic{
+    
+    height:120px;
+    width:120px;
+    padding: 10px;
+} 
+</style>
+
+<div class="container ">
+
+    <div class="row">
+        <div class="col-md-3 ">
+             <div class="profile-pic  mx-auto">
+                {{#if propic}}
+                <img
+                    alt="User Pic"
+                    src="/profilePicture/{{userDetails._id}}.jpg"
+                    id="viewImg"
+                    height="200"
+                />
+                {{else}}
+                 <img
+                    alt="User Pic"
+                    src="https://d30y9cdsu7xlg0.cloudfront.net/png/138926-200.png"
+                    id="viewImg"
+                    height="200"
+                />
+                {{/if}}
+                <input id="profile-image-upload" hidden name="proPic" type="file" onchange="previewImg(event)" />
+                
+
+            </div>
+            <div class="list-group">
+
+                <a href="/userProfile" class="list-group-item list-group-item-action active">My Profile</a>
+                <a href="#" class="list-group-item list-group-item-action"> Address</a>
+                <a href="#" class="list-group-item list-group-item-action">My Orders</a>
+
+            </div>
+
+        </div>
+        <div class="col-md-9 mt-5">
+            <div class="card" style="margin-bottom: 40px;"  >
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Edit Profile</h4>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <form action="/editUserProfile/{{userDetails._id}}" method="post">
+
+                                <div class="form-group row">
+                                    <label for="name" class="col-4 col-form-label">First Name</label>
+                                    <div class="col-8">
+                                        <input id="firstName" name="firstName" class="form-control here"  type="text" value="{{userDetails.firstName}}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lastname" class="col-4 col-form-label">Last Name</label>
+                                    <div class="col-8">
+                                        <input id="lastName" name="lastName" class="form-control here"  type="text" value="{{userDetails.lastName}}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="email" class="col-4 col-form-label">Email</label>
+                                    <div class="col-8">
+                                        <input
+                                        
+                                            id="email"
+                                            name="email"
+                                            class="form-control here"
+                                            value="{{userDetails.email}}"
+                                            type="email"
+                                            disabled
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="Gender" class="col-4 col-form-label">Gender</label>
+                                    <div class="col-8">
+                                        <input id="Gender" name="Gender" class="form-control here"  type="text" value="{{userDetails.Gender}}" disabled />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="mob" class="col-4 col-form-label"> Mobile no:</label>
+                                    <div class="col-8">
+                                        <input id="mob" name="phoneNumber" class="form-control here"  type="text" value="{{userDetails.phoneNumber}}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="dob" class="col-4 col-form-label">Date of Birth:</label>
+                                    <div class="col-8">
+                                        <input id="dob" name="dob" class="form-control here"  type="date" value="{{userDetails.dob}}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="Amob" class="col-4 col-form-label">Alternative Contact no:</label>
+                                    <div class="col-8">
+                                        <input id="Amob" name="Amobile" class="form-control here"  type="text" value="{{userDetails.Amobile}}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-4 col-8">
+                                        <button type="submit" class="btn btn-success btn-sm ml-2">Update Profile</button>
+                                        <a href="/changePassword" class="btn btn-primary btn-sm ml-2" > Change Password</a>
+                                         <a href="#" class="btn btn-danger btn-sm ml-2" onclick="cancelUpdate(event)" > Cancel</a>
+                                       
+                                     
+                                    </div>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function cancelUpdate(event){
+        event.preventDefault();
+         Swal.fire({
+        title: 'Confirm YES !',
+        text: "To Cancel the Updations",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'YES'
+    }).then((result)=>{
+        if(result.isConfirmed){
+            window.location ='/userProfile'
+        }
+    })
+    }
+</script>

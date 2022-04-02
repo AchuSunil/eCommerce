@@ -1,0 +1,122 @@
+<style>
+    .profile-pic img{
+   
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 0px #c1c1c1;
+    cursor: pointer;
+    width: 110px;
+    height: 110px;
+}  
+.profile-pic{
+    
+    height:132px;
+    width:132px;
+    padding: 10px;
+} 
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 mt-5">
+              <div class="profile-pic  mx-auto">
+                {{#if propic}}
+                <img
+                    alt="User Pic"
+                    src="/profilePicture/{{id}}.jpg"
+                    id="viewImg"
+                    height="200"
+                />
+                {{else}}
+                 <img
+                    alt="User Pic"
+                    src="https://d30y9cdsu7xlg0.cloudfront.net/png/138926-200.png"
+                    id="viewImg"
+                    height="200"
+                />
+                {{/if}}
+                <input id="profile-image-upload" hidden name="proPic" type="file" onchange="previewImg(event)" />
+                
+
+            </div>
+            <div class="list-group mt-3">
+
+                <a href="/userProfile" class="list-group-item list-group-item-action ">My Profile</a>
+                <a href="/userAddress" class="list-group-item list-group-item-action active"> Address</a>
+                <a href="/userOrder" class="list-group-item list-group-item-action">My Orders</a>
+
+            </div>
+
+        </div>
+        <div class="col-md-9 mt-5 mb-5">
+            <div class="card">
+                <div class="card-body">
+                    <form action="" id="checkout-form">
+                        <section class="checkout-wrapper section" style="padding-top: 0px;">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8" style="width: 90%;">
+
+                                        <div class="checkout-steps-form-style-1">
+                                            <ul id="accordionExample">
+                                                <li>
+                                                    <div class="d-flex justify-content-between mt-3">
+                                                        <h6 class="text-primary">
+                                                            Address Details
+                                                        </h6>
+                                                        <a href="/adduseraddress" class="btn btn-secondary">Add Address</a>
+                                                    </div>
+                                                    {{#if viewAddress}}
+                                                        <section class="checkout-steps-form-content collapse show mt-3">
+                                                            <div class="row">
+                                                                {{#each viewAddress}}
+                                                                    <div class="col-md-12">
+
+                                                                        <dl>
+                                                                            <input
+                                                                                type="radio"
+                                                                                class="mt-1"
+                                                                                name="addressId"
+                                                                                value="{{this._id}}"
+                                                                                hidden
+                                                                            />
+                                                                            <dt class="mt-2">{{this.firstname}}</dt>
+                                                                            <dt class="mt-2">{{this.email}}</dt>
+                                                                            <dt class="mt-2">{{this.address}}</dt>
+                                                                            <dt class="mt-2">{{this.city}}</dt>
+                                                                            <dt class="mt-2">{{this.pincode}}</dt>
+                                                                            <dt class="mt-2">{{this.phoneNumber}}</dt>
+                                                                            <a
+                                                                                href="/editUserAddress/{{this._id}}"
+                                                                                class="btn btn-success mt-3"
+                                                                            >Edit</a>
+                                                                            {{!-- <a
+                                                                                href="/deleteUserAddress/{{this._id}}"
+                                                                                class="btn btn-danger ml-3 mt-3"
+                                                                            >Remove</a> --}}
+                                                                        </dl>
+
+                                                                    </div>
+                                                                   
+                                                                {{/each}}
+                                                            </div>
+                                                        </section>
+                                                    {{/if}}
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <input type="text" name="userId" value="{{userId}}" hidden />
+
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

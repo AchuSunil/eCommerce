@@ -1,0 +1,157 @@
+<section>
+    <div class="container mt-4">
+        <form action="/admin/update-product/{{product._id}}" enctype="multipart/form-data" method="post">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <h2 class="text-center  text-primary ">Edit Product</h2>
+
+                    <label class="mt-2 " for="produt_name">Product Name</label>
+                    <input
+                        type="text"
+                        id="produt_name"
+                        name="product_name"
+                        class="form-control"
+                        value="{{product.product_name}}"
+                    />
+
+                    <label class="mt-4" for="Brand"> Brand </label>
+                    <select id="Brand" name="Brand" class="form-select" aria-label="Default select example">
+                        <option selected>{{product.Brand}}</option>
+                        <option value="Mi">Mi</option>
+                        <option value="realme">realme</option>
+                        <option value="Samsung">Samsung</option>
+                        <option value="Sony">Sony</option>
+                        <option value="LG">LG</option>
+                        <option value="TCL">TCL</option>
+                    </select>
+
+                    <label class="mt-4" for="Category">Product Category</label>
+                    <select id="Category" name="Category" class="form-select" aria-label="Default select example">
+                        <option selected>{{product.Category}} </option>
+                         {{#each category}}
+                            <option value="{{this.categoryName}}">{{this.categoryName}}</option>
+                        {{/each}}
+
+                    </select>
+
+                    <label class="mt-4" for="">Product Price</label>
+                    <input type="number" name="Price" class="form-control" autocomplete="off" value="{{product.Price}}" />
+
+                    <label class="mt-4" for="">Description</label>
+                    <input
+                        type="text"
+                        name="Description"
+                        class="form-control"
+                        autocomplete="off"
+                        value="{{product.Description}}"
+                    />
+
+                    <label class="mt-5" for="">Product Image</label>
+                   
+                    <img src="/product-images/{{product._id}}.jpg" style="width: 80px; height: auto; margin-bottom: 1rem; margin-left: 2rem;" id="viewImg" />
+                    <input type="file" name="image" class="form-control" onchange="viewImage(event)" />
+                    {{!-- <input type="file" name="Image2" class="form-control" />
+                    <input type="file" name="Image3" class="form-control" />  --}}
+
+                    {{! <label class="mt-4" for="is_smartTV">Smart TV</label>
+                    <select id="is_smartTV" name="is_smartTV" class="form-select" aria-label="Default select example">
+                        <option selected>Select Yes/No</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select> }}
+
+                    <label class="mt-5" for="Quantity">Product Quantity</label>
+                    <input type="number" id="Quantity" name="Quantity" class="form-control" value="{{product.Quantity}}" />
+
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-center text-success mt-3">Products Specifications</h5>
+
+                    <label class="mt-1" for="modelname">Model Name</label>
+                    <input type="text" id="modelname" name="modelname" class="form-control" value="{{product.modelname}}" />
+
+                    <label class="mt-3" for="display_inch">Display Inch </label>
+                    <select id="display_inch" name="Inch" class="form-select" aria-label="Default select example">
+                        <option selected>{{product.Inch}}</option>
+                        <option value="24">24</option>
+                        <option value="28">28</option>
+                        <option value="32">32</option>
+                        <option value="40">40</option>
+                        <option value="43">43</option>
+                        <option value="65">65</option>
+                    </select>
+
+                    <label class="mt-4" for="Resolution"> Resolution </label>
+                    <select id="Resolution" name="Resolution" class="form-select" aria-label="Default select example">
+                        <option selected>{{product.Resolution}}</option>
+                        <option value="4K ULTRA HD">4K ULTRA HD</option>
+                        <option value="FULL HD">FULL HD</option>
+                        <option value="HD READY">HD READY</option>
+
+                    </select>
+
+                    <label class="mt-4" for="Operating_System"> Operating System </label>
+                    <select id="Operating_System" name="OS" class="form-select" aria-label="Default select example">
+                        <option selected>{{product.OS}}</option>
+                        <option value="None">None</option>
+                        <option value="Android">Android</option>
+                        <option value="Coolita">Coolita</option>
+                        <option value="Linux">Linux</option>
+
+                    </select>
+
+                    <label class="mt-4" for="Screen_type">Screen Type </label>
+                    <select id="Screen_type" name="Screen_type" class="form-select" aria-label="Default select example">
+                        <option selected>{{product.Screen_type}}</option>
+                        <option value="None">None</option>
+                        <option value="LED">LED</option>
+                        <option value="OLED">OLED</option>
+                        <option value="QLED">QLED</option>
+                    </select>
+
+                    <label class="mt-4" for="Connectivity">Connectivity Features </label>
+                    <select id="Connectivity" name="Connectivity" class="form-select" aria-label="Default select example">
+                        <option selected>{{product.Connectivity}}</option>
+                        <option value="None">None</option>
+                        <option value="WI-FI">WI-FI</option>
+                        <option value="Bluetooth">Bluetooth</option>
+                    </select>
+
+                    <label class="mt-4" for="HDMI_port"> HDMI Ports </label>
+                    <select id="HDMI_port" name="HDMI_port" class="form-select" aria-label="Default select example">
+                        <option selected>{{product.HDMI_port}}</option>
+                        <option value="None">None</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                    <label class="mt-4" for="USB_port"> USB Ports </label>
+                    <select id="USB_port" name="USB_port" class="form-select" aria-label="Default select example">
+                        <option selected>{{product.USB_port}}</option>
+                        <option value="None">None</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-2">Update</button>
+
+        </form>
+
+    </div>
+</section>
+
+
+
+
+<script>
+    function viewImage(event){ 
+        document.getElementById('viewImg').src=URL.createObjectURL(event.target.files[0]) }
+</script>

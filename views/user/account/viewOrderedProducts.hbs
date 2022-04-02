@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 mt-5">
+            <div class="list-group">
+
+                <a href="/userProfile" class="list-group-item list-group-item-action">My Profile</a>
+                <a href="/userAddress" class="list-group-item list-group-item-action"> Address</a>
+                <a href="/userOrder" class="list-group-item list-group-item-action active">My Orders</a>
+
+            </div>
+
+        </div>
+        <div class="col-md-9 mt-3" style="margin-bottom: 4%;">
+           
+            {{#if addressDetails}}
+            <div class="card mt-4">
+                <div class="card-body">
+                     <h4>Delivery Address</h4>
+                     <hr>
+                    <h6 class="card-title mt-3 text-secondary">Full Name:
+                        <span class="text-dark">{{addressDetails.firstname}}</span> <span class="text-dark">{{addressDetails.lastname}}</span></h6>
+                    <p class="card-text mt-2">Address: <span class="text-dark">{{addressDetails.address}}</span></p>
+                    <p class="card-text mt-2">State: <span class="text-dark">{{addressDetails.state}}</span></p>
+                    <p class="card-text mt-2">City: <span class="text-dark">{{addressDetails.city}}</span></p>
+                    <p class="card-text mt-2">PINCODE: <span class="text-dark">{{addressDetails.pincode}}</span></p>
+                    <p class="card-text mt-2">Contact Number:
+                        <span class="text-dark">{{addressDetails.phoneNumber}}</span></p>
+
+                </div>
+              
+            </div>
+            {{/if}}
+
+        </div>
+    </div>
+</div>

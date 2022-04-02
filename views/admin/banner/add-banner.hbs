@@ -1,0 +1,45 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="d-flex justify-content-between">
+            <h5 class="m-0 font-weight-bold text-primary">Add Banner Images For Products</h5>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+
+                                <th>Product Name</th>
+                                <th>Model Name</th>
+                                <th>Add Banner</th>
+                                
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {{#each productDetails}}
+                                <tr>
+
+                                    <td>{{this.product_name}}</td>
+                                    <td>{{this.modelname}}</td>
+                                   <td class="">
+                                        <a
+                                            class="btn btn-success"
+                                            aria-current="page"
+                                            href="/admin/add-bannerImg/{{this._id}}"
+                                        >Add </a></td>
+                                    
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

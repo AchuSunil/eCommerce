@@ -1,0 +1,209 @@
+<section>
+  <div class="container align-items-center" style=" background-color: beige; padding-top: 4rem;">
+    <div class="justify-content-center d-flex">
+
+      <form id="productOfferForm" method="post" name="formpro" onsubmit="return prosubmit()">
+        <div class="col-md-12 text-center">
+          <p style="font-size: 20px; color: blue;">PRODUCT OFFER</p>
+        </div>
+        <div class="card-product pt-4">
+          <div class="row">
+            <div class="col-md-12 d-flex m-4">
+              <div class="font-weight-bold text-uppercase mt-2">Offer Name :</div>
+              <input type="text" class="form-control col-md-6 col-sm-4 col-4 ml-2" id="offerName" name="offerType" value="Product">
+             <p id="err"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 d-flex m-4">
+              <div class="font-weight-bold text-uppercase mt-2">Category :</div>
+              <div class="ml-3 mt-2">
+                <select name="category" id="offerCategory" required="true">
+                  <option value="selectcard">Select</option>
+                  {{#each Categories}}
+                  <option value="{{this.categoryName}}" name="categoryType">
+                    {{this.categoryName}}</option>
+                  {{/each}}
+
+                </select>
+                <p id="err1"></p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12 d-flex m-4">
+              <div class="font-weight-bold text-uppercase mt-2">PRODUCTS:</div>
+              <select name="product" id="offerProducts" style="margin-left: 10px; display:block !important;" required="true"></select>
+              <p id="err2"></p>
+            </div>
+          </div>
+
+          
+          {{!-- <div class="row">
+            <div class="col-md-12 d-flex m-4">
+              <div class="font-weight-bold text-uppercase mt-2" for="birthdaytime">Validity:</div>
+              <input type="date" name="validity" class="ml-2" id="validity" required="true">
+              <p id="err3"></p>
+            </div>
+          </div> --}}
+          <div class="row">
+            <div class="col-md-12 d-flex m-4">
+              <div class="font-weight-bold text-uppercase mt-2" for="discount">Discount:</div>
+              <input type="number" name="discount" class="ml-2" required="true" id="discount" maxlength="4" min="1" max="99">
+            </div>
+          </div>
+          <div class="text-center mt-4 pb-4">
+            <button class="btn btn-success" onclick="prosubmit()" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+   {{#if findProductOffer}}
+  <div class="d-flex justify-content-center mt-5">
+    <div class="col-md-12">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Type of Offer</th>
+            <th>Offer Items</th>
+            <th>Discount</th>
+            {{!-- <th>Validity</th> --}}
+            <th>Actions</th>
+           
+          </tr>
+        </thead>
+       
+        {{#each findProductOffer}}
+        <tbody id="game-table">
+          <tr>
+            <!-- Here will be added the games -->
+            <td>{{this.offerType}}</td>
+            <td>{{this.product}}</td>
+            <td>{{this.discount}} &#37;</td>
+            {{!-- <td>{{this.validity}}</td> --}}
+            <td><a onclick="deleteProductOffer('{{this._id}}','{{this.product}}')" class="btn btn-danger">Delete</a></td>
+          </tr>
+
+        </tbody>
+        {{/each}}
+      </table>
+    </div>
+  </div>
+  {{/if}}
+</section>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+    //when selecting the category have to show products in that category in products <select> 
+  $('#offerCategory').on('change', function () {
+    $('#offerProducts').show()
+    let Category = this.value
+    console.log(Category)
+    $.ajax({
+      type: "get",
+      url: '/admin/getAllProducts?Category='+Category,
+      success: function (response) {
+        
+
+        $('#offerProducts')[0].options.length = 0;
+
+        var subArray = response;
+        for(i=0;i<subArray.length;i++){
+            $('#offerProducts').append($('<option>',
+            {
+              value: subArray[i]._id,
+              text: subArray[i]._id
+            }));
+        }
+      
+      },
+      error: function (error) {
+
+      }
+    });
+  });
+
+
+  ///on form submitting
+  $('#productOfferForm').submit((e) => {
+  
+    e.preventDefault()
+    $.ajax({
+      url: '/admin/product-offer',
+      method: 'post',
+      data: $('#productOfferForm').serialize(),
+      success: (response) => {
+        if (response.Exist) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'This Product Offer already Exist !',
+            showConfirmButton: false,
+            timer: 2500
+          })
+        } else {
+          Swal.fire({
+            icon: 'success',
+            title: 'Offer Successfully Added !',
+            showConfirmButton: false,
+            timer: 2500
+          })
+          setTimeout(() => {
+            location.reload();
+          }, 2000)
+        }
+      }
+    })
+  })
+
+
+  //delete product Offer function
+    function deleteProductOffer(productOfferId, product) {
+       
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "/admin/deleteProductOffer",
+          method: "post",
+          data: { productOfferId, product },
+          success: (response) => {
+            if (response.status) {
+              swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              ).then(() => {
+                location.reload()
+              })
+            }
+          }
+        })
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+
+      }
+    })
+  }
+
+
+</script>

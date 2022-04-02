@@ -1,0 +1,29 @@
+<section>
+    <div class="container mt-4">
+        <form action="/admin/update-category/{{category._id}}" enctype="multipart/form-data" method="post">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <h2 class="text-center">Add Category</h2>
+                    <label class="mt-5" for="category_name">category Name</label>
+                    {{!-- {{#if errMsg}}
+                        <p class="text-danger text-center">{{errMsg}}</p>
+                    {{/if}} --}}
+                    <input
+                        type="text"
+                        id="category_name"
+                        value="{{category.categoryName}}"
+                        name="categoryName"
+                        class="form-control"
+                        autocomplete="off"
+                        required="true"
+                    />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-4">Update</button>
+
+        </form>
+
+    </div>
+</section>

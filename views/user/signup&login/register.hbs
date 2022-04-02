@@ -1,0 +1,395 @@
+<div class="account-login section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
+                <div class="register-form">
+                    <div class="title">
+                        <h3>No Account? Register</h3>
+                        <p>Registration takes less than a minute but gives you full control over your orders.</p>
+                        <p class="text-center" style="display: none;" id="displayMsg"></p>
+                    </div>
+                    <form class="row" method="post" action="/register-submit">
+                        {{#if errMsg}}
+                            <p class="text-danger text-center">{{errMsg}}</p>
+                        {{/if}}
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="reg-fn">First Name</label>
+                                <input
+                                    class="form-control regInput"
+                                    autocomplete="off"
+                                    name="firstName"
+                                    type="text"
+                                    id="reg-fn"
+                                    required="true"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="reg-ln">Last Name</label>
+
+                                <input
+                                    class="form-control regInput"
+                                    name="lastName"
+                                    autocomplete="off"
+                                    type="text"
+                                    id="reg-ln"
+                                    required="true"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <label for="reg-email">E-mail Address</label>
+
+                                <input
+                                    class="form-control regInput"
+                                    type="email"
+                                    name="email"
+                                    id="reg-email"
+                                    autocomplete="off"
+                                    required="true"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <label for="gender">Gender</label>
+
+                                <!-- male radio -->
+                                <div class="form-check">
+                                    <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="Gender"
+                                        id="male"
+                                        value="Male"
+                                    />
+                                    <label class="form-check-label" for="flexRadioDefault1">Male </label>
+                                </div>
+
+                                <!-- Default checked radio -->
+                                <div class="form-check">
+                                    <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="Gender"
+                                        id="Female"
+                                        value="Female"
+                                    />
+                                    <label class="form-check-label" for="flexRadioDefault2"> Female </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                 <span class="error_form" id="mob_error_message"></span>
+
+                                <label for="reg-phone">Phone Number</label>
+                                {{! <div class="text-danger"> }}
+                                <input
+                                    class="form-control regInput"
+                                    type="text"
+                                    name="phoneNumber"
+                                    id="form_mob"
+                                    autocomplete="off"
+                                    required="true"
+                                />
+
+                               
+            
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <label for="reg-pass">Password</label>
+
+                                <input
+                                    class="form-control regInput"
+                                    name="password"
+                                    type="password"
+                                    id="password"
+                                    required="true"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <label for="reg-pass-confirm">Confirm Password</label>
+
+                                <input
+                                    class="form-control regInput"
+                                    type="password"
+                                    id="confirm_password"
+                                    required="true"
+                                />
+                            </div>
+                        </div>
+
+
+                        <div class="button">
+                            <button class="btn" id="regBtn" type="submit">Register</button>
+                        </div>
+
+                        <p class="outer-link">Already have an account?
+                            <a href="/login">Login Now</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<script>
+
+    var password = document.getElementById("password") , 
+    confirm_password = document.getElementById("confirm_password");
+    function validatePassword(){ 
+        if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+          } else { 
+         confirm_password.setCustomValidity(''); } }
+          password.onchange = validatePassword; 
+          confirm_password.onkeyup = validatePassword;
+
+</script>
+<script>
+$("#fname_error_message").hide()
+$("#lname_error_message").hide()
+$("#email_error_message").hide()
+$("#mob_error_message").hide()
+$("#password_error_message").hide()
+$("#confirmpassword_error_message").hide()
+
+
+var error_fname = false;
+var error_lname = false;
+var error_email = false;
+var error_mobno = false;
+var error_password = false;
+var error_confirmpassword = false;
+$("#form_fname").focusout(function () {
+  check_fname();
+});
+$("#form_sname").focusout(function () {
+  check_sname();
+});
+$("#form_email").focusout(function () {
+  check_email();
+});
+$("#form_mob").focusout(function () {
+  check_mob();
+});
+$("#form_password").focusout(function () {
+  check_password();
+});
+$("#form_retype_password").focusout(function () {
+  check_retype_password();
+});
+
+function check_fname() {
+  var pattern = /^[a-zA-Z]*$/;
+  var fname = $("#form_fname").val();
+  if (pattern.test(fname) && fname !== '') {
+    $("#fname_error_message").hide();
+    $("#form_fname").css("border-bottom", "2px solid #34F458");
+  } else {
+    $("#fname_error_message").html("Should contain only Characters");
+    $("#fname_error_message").show();
+    $("#form_fname").css("border-bottom", "2px solid #F90A0A");
+    error_fname = true;
+  }
+}
+
+function check_sname() {
+  var pattern = /^[a-zA-Z]*$/;
+  var sname = $("#form_sname").val()
+  if (pattern.test(sname) && sname !== '') {
+    $("#sname_error_message").hide();
+    $("#form_sname").css("border-bottom", "2px solid #34F458");
+  } else {
+    $("#sname_error_message").html("Should contain only Characters");
+    $("#sname_error_message").show();
+    $("#form_sname").css("border-bottom", "2px solid #F90A0A");
+    error_sname = true;
+  }
+}
+
+function check_password() {
+  var password_length = $("#form_password").val().length;
+  if (password_length < 8) {
+    $("#password_error_message").html("Atleast 8 Characters");
+    $("#password_error_message").show();
+    $("#form_password").css("border-bottom", "2px solid #F90A0A");
+    error_password = true;
+  } else {
+    $("#password_error_message").hide();
+    $("#form_password").css("border-bottom", "2px solid #34F458");
+  }
+}
+
+function check_retype_password() {
+  var password = $("#form_password").val();
+  var retype_password = $("#form_retype_password").val();
+  if (password !== retype_password) {
+    $("#retype_password_error_message").html("Passwords Did not Matched");
+    $("#retype_password_error_message").show();
+    $("#form_retype_password").css("border-bottom", "2px solid #F90A0A");
+    error_retype_password = true;
+  } else {
+    $("#retype_password_error_message").hide();
+    $("#form_retype_password").css("border-bottom", "2px solid #34F458");
+  }
+}
+
+function check_email() {
+  var pattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  var email = $("#form_email").val();
+  if (pattern.test(email) && email !== '') {
+    $("#email_error_message").hide();
+    $("#form_email").css("border-bottom", "2px solid #34F458");
+  } else {
+    $("#email_error_message").html("Invalid Email");
+    $("#email_error_message").show();
+    $("#form_email").css("border-bottom", "2px solid #F90A0A");
+    error_email = true;
+  }
+}
+function check_mob() {
+  var pattern = /([0-9]{10})|(\([0-9]{3}\)\s+[0-9]{3}\-[0-9]{4})/;
+  var mob = $("#form_mob").val();
+  if (pattern.test(mob) && mob !== '' && mob.length == 10) {
+    $("#mob_error_message").hide();
+    $("#form_mob").css("border-bottom", "2px solid #34F458");
+  } else {
+    $("#mob_error_message").html("Invalid Mobile NO");
+    $("#mob_error_message").show();
+    $("#form_mob").css("border-bottom", "2px solid #F90A0A");
+    error_mobno = true;
+  }
+}
+
+$("#registration_form").submit(function () {
+  error_fname = false;
+  error_sname = false;
+  error_email = false;
+  error_mobno = false;
+  error_password = false;
+  error_retype_password = false;
+
+  check_fname();
+  check_sname();
+  check_email();
+  check_mob();
+  check_password();
+  check_retype_password();
+
+  if (error_fname === false && error_sname === false && error_email === false && error_password === false && error_retype_password === false && error_mobno === false) {
+
+    return true;
+  } else {
+    alert("Please Fill the form Correctly");
+    return false;
+  }
+
+
+});
+</script>
+
+{{! var resendbtn = document.getElementById('resendBtn')   
+      resendbtn.style.display="none";
+
+      var ttimer=  document.getElementById('timer')
+      ttimer.style.display="none";   
+
+      var timeleft=document.getElementById('timeleft')
+      timeleft.style.display='none';
+
+
+
+    function getOtp(event){ 
+                   event.preventDefault();
+                   document.querySelectorAll('.regInput').forEach(elem=> elem.disabled = true);
+                   document.getElementById('otpDisplay').style.display = 'block'; 
+                   var numotp=document.getElementById('reg-phone').value;
+
+        let timerOn = true;
+     function timer(remaining) {
+
+  var minute = Math.floor(remaining / 60);
+  var second = remaining % 60;
+  
+  minute = minute < 10 ? '0' + minute : minute;
+  second = second < 10 ? '0' + second : second;
+  document.getElementById('timer').innerHTML = minute + ':' + second;
+  var col=document.getElementById('timer');
+  col.style.color="#fc031c"
+
+    if(remaining != 0){
+       ttimer.style.display="inline" 
+       timeleft.style.display='inline' 
+
+  var resendbtn = document.getElementById('resendBtn')   
+  resendbtn.style.display="none"
+  }else {
+      var resendbtn = document.getElementById('resendBtn')   
+  resendbtn.style.display = "inline"
+  }
+ 
+  
+  remaining -= 1;
+  
+  if(remaining >= 0 && timerOn) {
+    setTimeout(function() {
+        timer(remaining);
+    }, 1000);
+    return;
+   
+  }
+  
+  if(!timerOn) {
+    // Do validate stuff here
+    return;
+  }
+  
+  // Do timeout stuff here
+  alert('Timeout for otp');
+}
+
+
+
+
+        console.log(numotp)
+        
+        /* ajax call */
+      
+        $.ajax({
+        
+            url: "/send-OTP", 
+            type:'post',
+            dataType:'json',
+            data:{
+                num : numotp
+            },
+            success: function(result){
+      
+         if (result.status){   
+        
+             
+             timer(120);
+            
+
+            document.getElementById('regBtn').disabled = false;
+            
+         }
+  }
+});
+    } }}

@@ -1,0 +1,113 @@
+<section class="checkout-wrapper section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form action="/edituseraddress" method="post">
+                    <div class="checkout-steps-form-style-1">
+                        <ul id="accordionExample">
+                            <li>
+                                <h6 class="text-primary">
+                                    Edit Your Address
+                                </h6>
+                                <section class="checkout-steps-form-content collapse show mt-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="single-form form-default">
+                                                <label>User Name</label>
+                                                <div class="row">
+                                                    <div class="col-md-6 form-input form">
+                                                        <input
+                                                            type="text"
+                                                            name="firstname"
+                                                            value="{{addressDetails.firstname}}"
+                                                        />
+                                                    </div>
+                                                    <div class="col-md-6 form-input form">
+                                                        <input
+                                                            type="text"
+                                                            name="lastname"
+                                                            value="{{addressDetails.lastname}}"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Email Address</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="email" value="{{addressDetails.email}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Address</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="address" value="{{addressDetails.address}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Phone Number</label>
+                                                <div class="form-input form">
+                                                    <input
+                                                        type="text"
+                                                        name="phoneNumber"
+                                                        value="{{addressDetails.phoneNumber}}"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>State</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="state" value="{{addressDetails.state}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>City</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="city" value="{{addressDetails.city}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>PIN Code</label>
+                                                <div class="form-input form">
+                                                    <input
+                                                        type="number"
+                                                        name="pincode"
+                                                        value="{{addressDetails.pincode}}"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <input type="text" name="addressId" value="{{addressDetails._id}}" hidden />
+                                        <input type="text" name="userId" value="{{userId}}" hidden />
+                                        <div class="col-md-12">
+                                            <div class="single-form button">
+                                                <button class="btn" type="submit">
+                                                    Update
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </li>
+
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>

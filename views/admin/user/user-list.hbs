@@ -1,0 +1,101 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">View Users</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No:</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>E-mail</th>
+                        <th>Number</th>
+                        <th>Date Joined</th>
+                        <th>Block or Unblock</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each allUsers}}
+                        <tr>
+
+                            <td>{{increment @index}}</td>
+                            <td>{{this.firstName}}</td>
+                            <td>{{this.lastName}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.phoneNumber}}</td>
+                            <td>{{this.dateJoined}}</td>
+                            <td>
+                                {{#if this.block}}
+
+                                    <a
+                                        onclick="unBlockUser(event,'{{this._id}}')"
+                                        class="ml-4"
+                                        type="submit"
+                                    ><button type="button" class="btn btn-warning text-center">UnBlock</button></a>
+                                {{else}}
+                                    <a
+                                        
+                                        onclick="blockUser(event,'{{this._id}}')"
+                                        class="ml-4"
+                                        type="submit"
+                                    ><button type="button" class="btn btn-danger">Block</button></a>
+                                {{/if}}
+
+                            </td>
+
+                        </tr>
+                    {{/each}}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function blockUser(event,userId){
+        event.preventDefault();
+
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "To Block the User",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Block User!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            window.location.href = '/admin/block-user/' + userId
+           
+
+        }
+    })
+    }
+
+    function unBlockUser(event,userId){
+        event.preventDefault();
+
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "To UnBlock the User",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, UnBlock User!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            window.location.href = '/admin/unblock-user/' + userId
+           
+
+        }
+    })
+    }
+</script>

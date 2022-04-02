@@ -1,0 +1,271 @@
+<div class="account-login section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
+                <form class="card login-form" action="/login-submit" method="post">
+                    <div class="card-body">
+                        <div class="title text-center">
+                            <h2 class="text-primary">Login Now</h2>
+
+                        </div>
+
+                        {{#if errMsg}}
+                            <p class="text-danger text-center" style="font-size: 20px;">{{errMsg}}</p>
+                        {{/if}}
+                        <div class="form-group input-group">
+                            <label for="reg-fn">Email</label>
+                            <input
+                                class="form-control reg-input"
+                                type="email"
+                                name="email"
+                                value="Achu@gmail.com"
+                                id="reg-email"
+                                required="true"
+                            />
+                        </div>
+                        <div class="form-group input-group">
+                            <label for="reg-fn">Password</label>
+                            <input
+                                class="form-control reg-input"
+                                type="password"
+                                name="password"
+                                value="achu"
+                                id="reg-pass"
+                                required="true"
+                            />
+                        </div>
+
+                        <div class="button">
+                            <button class="btn" id="btn-login" type="submit">Login</button>
+                        </div>
+                        <p class="outer-link">Don't have an account?
+                            <a href="/register">Register here </a>
+                        </p>
+                        <div class="text-center mt-3">
+                            <p class="fs-4 text-primary">OR</p>
+                        </div>
+
+                        <div class="button">
+                            <a href="javascript:void(0)" class="btn btn-secondary" onclick="getOTP(event)">OTP Login</a>
+                        </div>
+                        <div class="m-0 p-0" style="display: none;" id="otpDisplay">
+                            <div class="col-sm-12 mt-3">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div id="OTPErr"></div>
+                                        
+                                            <div class="col-md-8">
+
+                                                <input
+                                                    class="form-control mt-3"
+                                                    type="text"
+                                                    id="inputTxt"
+                                                    placeholder="Enter Your Registered Mobile Number...."
+                                                    style="height: 41px;"
+                                                />
+                                            </div>
+                                            <div class="col-md-4 d-flex justify-content-center" style="padding-top: 14px;">
+                                                <a
+                                                    href="javascript:void(0)"
+                                                    class="btn btn-secondary"
+                                                    style="height: 41px;"
+                                                    onclick="sendOTP(event)"
+                                                >Send OTP</a>
+                                                <span style="font-size: 30px; cursor: pointer;" class="ml-2" onclick="refreshInputTxt(event)">&#x21bb;</span>
+                                            </div>
+                                       
+
+                                    </div>
+
+                                    <label for="reg-pass-confirm" class="mt-3">Enter OTP</label>
+                                    <div id="verifyOTPErr"></div>
+                                    <input class="form-control mt-3" type="text" autocomplete="off" id="verifyOTPField"   />
+                                    <div style=" margin-left: 70px;" id="timeleft" >
+                                        <span>Time left = </span><span id="timer"></span>
+                                    </div>
+                                    <div class="text-center mt-3 ">
+                                        <a href="javascript:void(0)" onclick="sendOTP(event)" id="resendBtn">Resend</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <a href="javascript:void(0)"  id="btn-verify" class="btn btn-secondary" onclick="verifyOTP(event)">Verify OTP</a>
+                            </div>
+                        </div>
+ 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+   function getOTP(event) {
+	event.preventDefault();
+	document.querySelectorAll('.reg-input')
+		.forEach(elem => elem.disabled = elem.disabled ? false : true);
+
+
+	const display = document.getElementById('otpDisplay')
+	display.style.display = display.style.display == 'block' ? 'none' : 'block';
+
+	document.getElementById('resendBtn').style.display = 'none';
+	document.getElementById('timeleft').style.display = 'none';
+
+	const btn_login = document.getElementById('btn-login');
+	btn_login.disabled = btn_login.disabled ? false : true;
+	document.getElementById('btn-verify').style.display = 'none';
+
+}
+
+function refreshInputTxt(event) {
+	document.getElementById('inputTxt').disabled = false;
+	document.getElementById('OTPErr').innerHTML = "";
+}
+
+function sendOTP(event) {
+	event.preventDefault();
+	document.getElementById('verifyOTPField').disabled = false;
+	document.getElementById('verifyOTPField').value = "";
+	const OTPnumberField = document.getElementById('inputTxt');
+	if (OTPnumberField.value.length === 0) {
+		document.getElementById('OTPErr').innerHTML = "*Please enter Your Number";
+	}
+
+	document.getElementById('btn-verify').style.display = 'block';
+	OTPnumberField.disabled = true;
+	const numotp = document.getElementById('inputTxt').value;
+
+
+	let timerOn = true;
+
+	function timer(remaining) {
+
+		var minute = Math.floor(remaining / 60);
+		var second = remaining % 60;
+
+		minute = minute < 10 ? '0' + minute : minute;
+		second = second < 10 ? '0' + second : second;
+		document.getElementById('timer').innerHTML = minute + ':' + second;
+		var col = document.getElementById('timer');
+		col.style.color = "#fc031c"
+
+		if (remaining != 0) {
+
+			document.getElementById('timeleft').style.display = 'inline';
+
+
+		} else {
+			var resendbtn = document.getElementById('resendBtn')
+			resendbtn.style.display = "inline"
+		}
+
+
+		remaining -= 1;
+
+		if (remaining >= 0 && timerOn) {
+			setTimeout(function () {
+				timer(remaining);
+			}, 1000);
+			return;
+
+		}
+
+		if (!timerOn) {
+			// Do validate stuff here
+			return;
+		}
+
+		// Do timeout stuff here
+		Swal.fire({
+			icon: 'Time Out',
+			title: 'Oops...',
+			text: 'OTP timed out!',
+
+		})
+	}
+
+
+	$.ajax({
+		url: "/send-OTP",
+		type: 'post',
+		dataType: 'json',
+		data: {
+			num: numotp
+		},
+		success: function (result) {
+
+			if (result.status) {
+				timer(120);
+			} else {
+				const OTPErr = document.getElementById('OTPErr');
+				OTPErr.style.color = "red";
+				if (OTPnumberField.value.length === 0) {
+					OTPErr.innerHTML = "*Please enter Your Number";
+				} else {
+					OTPErr.innerHTML = "*Entered Number Not Registered";
+				}
+
+			}
+
+		}
+	})
+}
+
+function verifyOTP(event) {
+	event.preventDefault();
+	const verifyOTPField = document.getElementById('verifyOTPField');
+
+	document.getElementById('verifyOTPErr').style.color = "red";
+	if (verifyOTPField.value.length === 0) {
+		document.getElementById('verifyOTPErr').innerHTML = "*Field Required"
+		setTimeout(() => {
+			document.getElementById('verifyOTPErr').innerHTML = ""
+		}, 1000)
+
+
+	} else {
+		const numotp = document.getElementById('inputTxt').value;
+		const OTPNumber = verifyOTPField.value;
+		verifyOTPField.disabled = true;
+		$.ajax({
+			url: "/verifySignupOTP",
+			type: "post",
+			dataType: 'json',
+			data: {
+				OTP: OTPNumber,
+				mobile: numotp
+			},
+			success: function (result) {
+
+				if (result.status == false) {
+					document.getElementById('verifyOTPErr').innerHTML = "*Verification Failed";
+                    timerOn = false;
+
+					setTimeout(() => {
+						document.getElementById('verifyOTPErr').innerHTML = ""
+
+					}, 1000)
+
+				} else if (result.response == true) {
+					document.getElementById('verifyOTPErr').innerHTML = "*Admin Blocked";
+                    timerOn = false;
+
+					setTimeout(() => {
+						document.getElementById('verifyOTPErr').innerHTML = ""
+					}, 1000)
+				} else {
+
+					location.href = '/'
+				}
+
+
+			}
+		})
+	}
+
+
+}
+
+</script>  

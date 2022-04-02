@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3 col-md-3 col-lg-3">
+            <div class="mt-5">
+                <div class="list-group">
+
+                    <a href="/userProfile" class="list-group-item list-group-item-action">My Profile</a>
+                    <a href="/userAddress" class="list-group-item list-group-item-action"> Address</a>
+                    <a href="/userOrder" class="list-group-item list-group-item-action">My Orders</a>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-9 col-md-9 col-lg-9">
+            <div class="mt-5" style="margin-bottom: 60px;">
+                <div class="card-header">
+                    <span class="ml-2 fs-5">My Wishlist</span>
+                </div>
+                {{#each userWishlist}}
+                    <div class="card-body mt-3 border">
+
+                        <div class="row">
+                            <div class="col-12 col-md-2 col-lg-2">
+                                <a href="/product-details/{{this.proId}}"><img
+                                        class="card-img"
+                                        src="/product-images/{{this.proId}}.jpg"
+                                        style="width: 150px; height: 100px;"
+                                        alt="Card image"
+                                    /></a>
+                            </div>
+
+                            <div class="col-12 col-md-10 col-lg-10">
+
+                                <a href="/product-details/{{this.proId}}"><h5 class="card-title"><span
+                                        >{{this.product.product_name}}</span>
+                                        <span class="fs-5 ml-2">({{this.product.Inch}} inch)</span>
+                                        <span class="ml-2">{{this.product.Category}}</span>
+                                        <span class="fs-6 ml-2 text-secondary">{{this.product.modelname}}</span>
+                                    </h5></a>
+                                <div> <span class="text-dark fs-5">&#x20B9; {{this.product.Price}}</span></div>
+                                <div class="mt-2">
+                                    <a
+                                        href="#"
+                                        onclick="removeWishlist(event,'{{this._id}}','{{this.proId}}')"
+                                        class="btn btn-outline-danger btn-sm"
+                                    >Remove Item</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function removeWishlist(event, wishlistId, proId) { 
+        event.preventDefault();
+         Swal.fire({ 
+              title: 'Confirm YES !',
+              text: "To Remove the Item From Wishlist", 
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33', 
+              confirmButtonText: 'YES'
+              }).then((result) => {
+                   if (result.isConfirmed) { 
+                       $.ajax({ 
+                       url: '/removeItem-wishlist', 
+                       data: { wishlistId: wishlistId, proId: proId },
+                        method: 'post',
+                         success: (response) => { 
+                             if(response.removed) {
+                                  location.reload() 
+                                  }
+                                   } 
+                                   }) 
+                                   }
+                                    })
+                                     }
+</script>

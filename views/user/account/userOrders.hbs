@@ -1,0 +1,209 @@
+<style>
+    .profile-pic img{
+   
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 0px #c1c1c1;
+    cursor: pointer;
+    width: 110px;
+    height: 110px;
+}  
+.profile-pic{
+    
+    height:132px;
+    width:132px;
+    padding: 10px;
+} 
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 mt-5">
+
+              <div class="profile-pic  mx-auto">
+                {{#if propic}}
+                <img
+                    alt="User Pic"
+                    src="/profilePicture/{{id}}.jpg"
+                    id="viewImg"
+                    height="200"
+                />
+                {{else}}
+                 <img
+                    alt="User Pic"
+                    src="https://d30y9cdsu7xlg0.cloudfront.net/png/138926-200.png"
+                    id="viewImg"
+                    height="200"
+                />
+                {{/if}}
+                <input id="profile-image-upload" hidden name="proPic" type="file" onchange="previewImg(event)" />
+                
+
+            </div>
+            <div class="list-group mt-3">
+
+                <a href="/userProfile" class="list-group-item list-group-item-action">My Profile</a>
+                <a href="/userAddress" class="list-group-item list-group-item-action"> Address</a>
+                <a href="/userOrder" class="list-group-item list-group-item-action active">My Orders</a>
+
+            </div>
+
+        </div>
+        <div class="col-md-9 col-sm-12 mt-4" style="margin-bottom: 4%;">
+            {{#each allOrders}}
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div>
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-8">
+                                    {{#if this.orderStatus}}
+                                        <h5 class="card-title text-secondary ml-5 mt-3">Ordered on:
+                                            <span class="text-dark fs-5">{{this.orderDate}}</span></h5>
+                                    {{else}}
+                                        <h5 class="card-title text-secondary ml-5 mt-3">Order attempted on:
+                                            <span class="text-dark fs-5">{{this.orderDate}}</span></h5>
+                                    {{/if}}
+
+                                </div>
+                                <div class="col-sm-6 col-lg-4">
+                                    {{#if this.cancel}}
+                                        <button class="btn btn-white text-danger float-right mt-3">Cancelled</button>
+
+                                    {{else}}
+                                      {{#if this.orderStatus}}
+                                          <a
+                                            href="#"
+                                            id="cancelOrder"
+                                            class="btn btn-danger float-right mt-3"
+                                            onclick="cancelOrder(event,'{{this._id}}','{{this.item}}')"
+                                          >Cancel Order</a>
+                                        {{/if}}
+                                    {{/if}}
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="d-flex justify-content-center">
+                                    <a href="/product-details/{{this.product._id}}"><img
+                                            style="width: 200px; height: 100px;"
+                                            class="mt-4"
+                                            src="/product-images/{{this.product._id}}.jpg"
+                                            alt="sorry"
+                                        /></a>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <h6 class="mt-2">{{this.product.product_name}}
+                                        <span>({{this.product.Inch}})</span></h6>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <p class="card-text text-dark mt-2">{{this.product.Resolution}} TV</p>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <p class="card-text text-dark mt-2">(Qty : {{this.quantity}})</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="card-title mt-4">Payment Details</h6>
+                                <p class="card-text mt-2">Payable Amount:
+                                    <span class="text-dark">&#x20B9; {{this.totalPrice}}</span></p>
+                                <p class="card-text mt-2">Payment Method:
+                                    <span class="text-dark">{{this.payment}}</span></p>
+                                <span class="card-text mt-2">Order-Status:</span>
+                                {{#if this.cancel}}
+                                    <span style="color: red;">{{this.products.orderStatus}}</span>
+                                    <p class="card-text text-primary mt-3">Order Cancelled On:
+                                        <span class="text-dark" id="cancelDate">{{this.cancelDate}}sec</span></p>
+                                {{else}}
+                                    {{#if this.orderStatus}}
+                                        <span style="color: green;" id="orderCancel">{{this.orderStatus}}</span>
+                                    {{else}}
+                                         <span style="color:red">Order Not Placed</span>
+                                        <p> <span style="color:blue">Your Payment was not confirmed by the bank.</span></p>
+
+                                    {{/if}}
+                                {{/if}}
+                                {{!-- <a href="/viewOrderedProducts/{{this.deliveryDetails}}" class="btn btn-secondary mt-3">View
+                                    Details</a> --}}
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="card-title mt-3">Shipping Details</h6>
+                                <p class="card-text mt-2">Full Name:
+                                    <span class="text-dark">{{this.address.firstname}}</span>
+                                    <span class="text-dark">{{this.address.lastname}}</span></p>
+                                <p class="card-text mt-2">Address:
+                                    <span class="text-dark">{{this.address.address}}</span></p>
+                                <p class="card-text mt-2">State:
+                                    <span class="text-dark">{{this.address.state}}</span><span
+                                        class="card-text ml-3 mt-2"
+                                    >City:
+                                        <span class="text-dark">{{this.address.city}}</span></span></p>
+                                <p class="card-text mt-2">PINCODE:
+                                    <span class="text-dark">{{this.address.pincode}}</span></p>
+                                <p class="card-text mt-2">Contact Number:
+                                    <span class="text-dark">{{this.address.phoneNumber}}</span></p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+ function cancelOrder(e, orderId, itemId) {
+    e.preventDefault();
+
+
+
+    Swal.fire({
+        title: 'Confirm YES !',
+        text: "To Cancel the Order",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'YES'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: '/userProductCancel',
+                data: {
+                    itemId: itemId,
+                    orderId: orderId
+                },
+                success: function(status) {
+                    if (status.status) {
+                        location.reload()
+                        Swal.fire(
+                            'Cancelled',
+                            'Your Order has been Cancelled.',
+                            'success'
+                        )
+                    }
+
+                }
+            })
+
+
+
+
+        }
+    })
+}
+  
+    
+</script> 
+
+{{! let orderCancel= document.getElementById('orderCancel');
+                             document.getElementById('cancelOrder').style.display = "none";
+                              orderCancel.innerHTML = status.userOrderStatus[0].status;
+                               orderCancel.style.color ="red";
+                               document.getElementById('cancelDate').innerHTML = status.userOrderStatus[0].cancelDate; }}

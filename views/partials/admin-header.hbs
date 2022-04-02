@@ -1,0 +1,39 @@
+{{#if login}}
+    <nav class="navbar navbar-expand-lg navbar-light" style="height:100px; background-color: #232f3f;">
+        <h2 id="login-logo">Electro-Gen</h2>
+    </nav>
+{{else}}
+    <!-- Topbar -->
+    <header>
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <div style="margin-left: 4%;">
+               <img src="/assets/images/admin/adminLogo.png" style="width: 120%;height: 126%;" alt="">
+            </div>
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <!-- Topbar Search -->
+           
+            {{#if viewProductsBtn}}
+                <a href="/admin/view-products"><button
+                        style="font-size: 14px; color: #ffff;"
+                        class="btn btn-success ml-5"
+                    >View Products</button></a>
+            {{/if}}
+            <!-- Nav Item - User Information -->
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <a href="/admin/logout"><button class="btn btn-danger mr-2">Logout</button></a>
+                    
+
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+{{/if}}

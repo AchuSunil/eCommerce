@@ -1,0 +1,35 @@
+<section>
+    <div class="container mt-4">
+        <form action="/admin/update-bannerImg/{{bannerId}}" enctype="multipart/form-data" method="post">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <h2 class="text-center">Update Banner</h2>
+
+                    <div>
+                        <label class="mt-5" for="bannerImage">Banner Image</label>
+                        <input type="text" name="productId" value="{{bannerId}}" hidden />
+                        <img
+                            src="/Banner-Images/{{bannerId}}.jpg"
+                            style="width: 250px; height: auto; margin-bottom: 1rem; margin-left: 2rem;"
+                             id="viewBannerImg"
+                            class="mt-5"
+                        />
+                        <input type="file" name="bannerImage" class="form-control" onchange="viewBannerImage(event)" />
+                    </div>
+
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-4">Upload</button>
+
+        </form>
+
+    </div>
+</section>
+
+<script>
+    function viewBannerImage(event){ 
+        document.getElementById('viewBannerImg').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>

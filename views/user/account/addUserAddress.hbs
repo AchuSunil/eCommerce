@@ -1,0 +1,98 @@
+<section class="checkout-wrapper section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form action="/adduseraddress" method="post">
+                    <div class="checkout-steps-form-style-1">
+                        <ul id="accordionExample">
+                            <li>
+                                <h6 class="text-primary">
+                                    Add Your Address
+                                </h6>
+                                <section class="checkout-steps-form-content collapse show mt-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="single-form form-default">
+                                                <label>User Name</label>
+                                                <div class="row">
+                                                    <div class="col-md-6 form-input form">
+                                                        <input type="text" name="firstname" placeholder="First Name" required/>
+                                                    </div>
+                                                    <div class="col-md-6 form-input form">
+                                                        <input type="text" name="lastname" placeholder="Last Name" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Email Address</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="email" placeholder="Email Address" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Address</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="address" placeholder="Address" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Phone Number</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="phoneNumber" placeholder="Phone Number" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>State</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="state" placeholder="State" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>City</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="city" placeholder="City" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>PIN Code</label>
+                                                <div class="form-input form">
+                                                    <input type="number" name="pincode" placeholder="Post Code" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        <input type="text" name="userId" value="{{userId}}" hidden />
+
+                                        <div class="col-md-12">
+                                            <div class="single-form button">
+                                                <button class="btn" type="submit">
+                                                    Save
+                                                </button>
+                                                <a href="/userAddress" class="btn btn-danger">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </li>
+
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>

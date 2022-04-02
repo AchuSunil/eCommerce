@@ -1,0 +1,349 @@
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<section class="hero-area mt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-12 custom-padding-right">
+                <div class="slider-head">
+                    <div class="hero-slider">
+                   
+                        
+                        <div class="single-slider" style="background-image: url(/Banner-Images/{{banner1._id}}.jpg)">
+                            <div class="content">
+                                <h2 class="text-light">
+                                    <span class="text-light">{{banner1.productName}}</span>
+                                 
+                                </h2>
+                                <p class="text-light fs-4 lh-base">
+                                    This is the best time to purchase <br> Samsung Tv's and Enjoy the world of quality <br> You will get featured Models
+                                </p>
+                                <h3 class="text-light"><span class="text-light">Now Only</span > {{banner1.productPrice}}</h3>
+                                <div class="button">
+                                    <a href="/product-details/{{banner1.productId}}" class="btn">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="single-slider" style="background-image: url(/Banner-Images/{{banner2._id}}.jpg)">
+                            <div class="content">
+                                <h2>
+                                    <span class="text-light ml-3">{{banner2.productName}}</span>
+                                   
+                                </h2>
+                                <p class="text-light ml-3 fs-4 lh-base ">
+                                   Lg The Best 32 " tv in <br> range with best HDR Quality
+                                </p>
+                                <h3 class="text-light"><span class="text-light">Combo Only:</span > {{banner2.productPrice}}</h3>
+                                <div class="button">
+                                    <a href="/product-details/{{banner2.productId}}" class="btn">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                     
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="trending-product section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>New Launches</h2>
+                    <p>
+                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                        alteration in some form.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {{#each newLaunch}}
+                <div class="col-lg-3 col-md-6 col-12">
+
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img
+                                style="width: 209px; height: 125px;"
+                                class="mt-2 ml-3"
+                                src="/product-images/{{this._id}}.jpg"
+                                alt="sorry"
+                            />
+                            <div class="button">
+                                <a href="/add-tocart/{{this._id}}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                
+                            </div>
+                        </div>
+                        <div class="product-info">
+                           <div class="text-right" style="margin-right: 14px;">
+                              
+                               <a href="#" class="btn btn-outline-danger btn-sm" onclick="addToWishlist(event,'{{this._id}}')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg></a>
+                              
+                               
+                           </div>
+                            <div class="text-center mt-2">
+                               <h4 class="title">
+                                <a href="/product-details/{{this._id}}">{{this.product_name}}</a>
+                            </h4>
+                               
+                           </div>
+                            
+                            <ul class="review text-center">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star"></i></li>
+                                <li><span>4.0 Review(s)</span></li>
+                            </ul> 
+                            <div class="price text-center">
+                               
+                                <p class="card-text h5" style="font-size: 17px; color: black;">Rs. {{this.Price}} {{#if offer}} <span style="font-size: 15px; color: rgb(105, 105, 105);"><strike>Rs.{{this.OldPrice}}</strike></span> <span  style="font-size: 15px; color: rgb(175, 45, 12);">({{this.offerPercentage}}% OFF)</span> {{/if}}</p>
+                                
+                             
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="text-center">
+        <a href="/product-grids " class="btn btn-success mt-3">View All</button></a>
+    </div>
+</section>
+
+<section class="trending-product section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Smart Android TVs</h2>
+                    <p>
+                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                        alteration in some form.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {{#each smartTvs}}
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img
+                                 style="width: 209px; height: 125px;"
+                                class="mt-2 ml-3"
+                                src="/product-images/{{this._id}}.jpg"
+                                alt="#"
+                            />
+                            <div class="button">
+                               <a href="/add-tocart/{{this._id}}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                            </div>
+                        </div>
+                         <div class="product-info">
+                           <div class="text-right" style="margin-right: 14px;">
+                              
+                               <a href="#" class="btn btn-outline-danger btn-sm" onclick="addToWishlist(event,'{{this._id}}')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg></a>
+                           </div>
+                            <div class="text-center mt-2">
+                               <h4 class="title">
+                                <a href="/product-details/{{this._id}}">{{this.product_name}}</a>
+                            </h4>
+                               
+                           </div>
+                            
+                            <ul class="review text-center">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star"></i></li>
+                                <li><span>4.0 Review(s)</span></li>
+                            </ul> 
+                            <div class="price text-center">
+                              
+                                <p class="card-text h5" style="font-size: 17px; color: black;">Rs. {{this.Price}} {{#if offer}} <span style="font-size: 15px; color: rgb(105, 105, 105);"><strike>Rs.{{this.OldPrice}}</strike></span> <span  style="font-size: 15px; color: rgb(175, 45, 12);">({{this.offerPercentage}}% OFF)</span> {{/if}}</p>
+                                
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+
+        </div>
+    </div>
+    <div class="text-center">
+        <a href="/view-smartAndroidTvs"><button type="button" class="btn btn-success mt-3">View All</button></a>
+    </div>
+</section>
+
+<section class="trending-product section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Standard TVs</h2>
+                    <p>
+                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                        alteration in some form.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            {{#each standardtvs}}
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img
+                                 style="width: 209px; height: 125px;"
+                                class="mt-2 ml-3"
+                                src="/product-images/{{this._id}}.jpg"
+                                alt="#"
+                            />
+                            <div class="button">
+                                <a href="/add-tocart/{{this._id}}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                            </div>
+                        </div>
+                         <div class="product-info">
+                           <div class="text-right" style="margin-right: 14px;">
+                              
+                               <a href="#" class="btn btn-outline-danger btn-sm" onclick="addToWishlist(event,'{{this._id}}')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg></a>
+                           </div>
+                            <div class="text-center mt-2">
+                               <h4 class="title">
+                                <a href="/product-details/{{this._id}}">{{this.product_name}}</a>
+                            </h4>
+                               
+                           </div>
+                            
+                            <ul class="review text-center">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star"></i></li>
+                                <li><span>4.0 Review(s)</span></li>
+                            </ul> 
+                            <div class="price text-center">
+                               
+                                <p class="card-text h5" style="font-size: 17px; color: black;">Rs. {{this.Price}} {{#if offer}} <span style="font-size: 15px; color: rgb(105, 105, 105);"><strike>Rs.{{this.OldPrice}}</strike></span> <span  style="font-size: 15px; color: rgb(175, 45, 12);">({{this.offerPercentage}}% OFF)</span> {{/if}}</p>
+                           
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+
+        </div>
+    </div>
+    <div class="text-center">
+        <a href="/view-standardTvs"><button type="button" class="btn btn-success mt-3">View All</button></a>
+    </div>
+</section>
+
+
+
+
+
+<section class="shipping-info">
+    <div class="container">
+        <ul class="d-flex justify-content-center">
+            <li>
+                <div class="media-icon">
+                    <i class="lni lni-delivery"></i>
+                </div>
+                <div class="media-body">
+                    <h5>Free Shipping</h5>
+                     <span>All India.</span>
+                   
+                </div>
+            </li>
+
+            <li>
+                <div class="media-icon">
+                    <i class="lni lni-support"></i>
+                </div>
+                <div class="media-body">
+                    <h5>24/7 Support.</h5>
+                     <span>Toll free 000-555-777</span>
+                  
+                </div>
+            </li>
+
+            <li>
+                <div class="media-icon">
+                    <i class="lni lni-credit-cards"></i>
+                </div>
+                <div class="media-body">
+                    <h5>Online Payment.</h5>
+                    <span>Secure Payment Services.</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+ <script>
+    function addToWishlist(event, proId) {
+	event.preventDefault()
+
+	$.ajax({
+		url: '/add-toWishlist',
+		data: {
+			proId: proId
+		},
+		method: 'post',
+		success: (response) => {
+			if (response.status) {
+
+				Swal.fire({
+					icon: 'success',
+					title: 'Product added to wishlist',
+					showConfirmButton: false,
+					timer: 1500
+				}).then(()=>{
+                   let wishlistCount = document.getElementById('wishlistCount');
+				wishlistCount.innerHTML = response.wishlistCount;
+               
+                })
+				
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Product removed from wishlist',
+					showConfirmButton: false,
+					timer: 1500
+				})
+
+			}
+		}
+	})
+
+}
+
+
+</script>  

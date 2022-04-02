@@ -1,0 +1,219 @@
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS Admin-->
+       
+
+        {{#if admin}}
+       
+        <link href="/stylesheets/admin/signin.css" rel="stylesheet" />
+        <link href="/stylesheets/admin/sb-admin-2.min.css" rel="stylesheet" />
+        <link href="/stylesheets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet"
+        />
+       
+        {{/if}}
+
+        <!--Bootstrap css User-->	
+        {{#if user}}
+         {{!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> --}}
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+          <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+          <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+          <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        
+        <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon/favicon.svg" />
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/assets/css/LineIcons.3.0.css" />
+        <link rel="stylesheet" href="/assets/css/tiny-slider.css" />
+        <link rel="stylesheet" href="/assets/css/glightbox.min.css" />
+        <link rel="stylesheet" href="/assets/css/main.css" />
+
+         {{/if}}
+
+
+          {{#if admin}}
+        <title>Admin Panel</title>
+          {{/if}}
+          {{#if user}}
+           <title>Electro-Gen</title>
+           {{/if}}
+    </head>
+    <body>
+
+
+        {{#if admin}}
+            {{>admin-header}}
+
+            {{#if login}}
+                {{{body}}}
+            {{else}}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6 col-md-4 col-lg-3">
+                            {{>admin-sidebar}}
+                        </div>
+                        <div class="col-6 col-md-8 col-lg-9">
+                            {{{body}}}
+                        </div>
+                    </div>
+                </div>
+
+            {{/if}}
+        {{/if}}
+
+
+
+        {{#if user}}
+         
+         {{>user-header}}
+          {{{body}}}
+          {{>user-footer}}
+          
+          
+        {{/if}}
+
+
+        
+
+
+
+      <!--userside-->
+        {{#if admin}}
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="/stylesheets/admin/vendor/jquery/jquery.min.js"></script>
+        <script src="/stylesheets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="/stylesheets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="/javascripts/admin/sb-admin-2.min.js"></script>
+        <script src="/stylesheets/admin/vendor/chart.js/Chart.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="/javascripts/admin/demo/chart-area-demo.js"></script>
+        <script src="/javascripts/admin/demo/chart-pie-demo.js"></script>
+         {{/if}}
+
+        <!--user javascript-->
+        {{#if user}}
+        
+         <script src="/assets/js/bootstrap.min.js"></script> 
+        <script src="/assets/js/tiny-slider.js"></script>
+        <script src="/assets/js/glightbox.min.js"></script>
+        <script src="/assets/js/main.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"
+        ></script>
+        
+        <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+        
+
+       
+        <script src="/form-validation/validation.js"></script>
+         <script type="text/javascript">
+         
+            //========= Hero Slider
+            tns({
+                container: ".hero-slider",
+                slideBy: "page",
+                autoplay: true,
+                autoplayButtonOutput: false,
+                mouseDrag: true,
+                gutter: 0,
+                items: 1,
+                nav: false,
+                controls: true,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+            });
+
+            //======== Brand Slider
+            tns({
+                container: ".brands-logo-carousel",
+                autoplay: true,
+                autoplayButtonOutput: false,
+                mouseDrag: true,
+                gutter: 15,
+                nav: false,
+                controls: false,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    540: {
+                        items: 3,
+                    },
+                    768: {
+                        items: 5,
+                    },
+                    992: {
+                        items: 6,
+                    },
+                },
+            });
+        </script>
+        <script>
+            const finaleDate = new Date("February 15, 2023 00:00:00").getTime();
+
+            const timer = () => {
+                const now = new Date().getTime();
+                let diff = finaleDate - now;
+                if (diff < 0) {
+                    document.querySelector(".alert").style.display = "block";
+                    document.querySelector(".container").style.display = "none";
+                }
+
+                let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                days <= 99 ? (days = `0${days}`) : days;
+                days <= 9 ? (days = `00${days}`) : days;
+                hours <= 9 ? (hours = `0${hours}`) : hours;
+                minutes <= 9 ? (minutes = `0${minutes}`) : minutes;
+                seconds <= 9 ? (seconds = `0${seconds}`) : seconds;
+
+                document.querySelector("#days").textContent = days;
+                document.querySelector("#hours").textContent = hours;
+                document.querySelector("#minutes").textContent = minutes;
+                document.querySelector("#seconds").textContent = seconds;
+            };
+            timer();
+            setInterval(timer, 1000);
+        </script>
+        {{/if}} 
+
+    </body>
+</html>

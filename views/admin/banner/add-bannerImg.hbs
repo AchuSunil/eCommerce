@@ -1,0 +1,23 @@
+ <section>
+    <div class="container mt-4">
+        <form action="/admin/add-bannerImg" enctype="multipart/form-data" method="post">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <h2 class="text-center">Add Banner</h2>
+                    
+                    <div>
+                        <label class="mt-5" for="bannerImage">Banner Image</label>
+                        <input type="text" name="productId" value="{{productId}}" hidden>
+                        <input type="file" id="bannerImage" name="bannerImage" class="form-control" required="true" />
+                    </div>
+
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-4">Upload</button>
+
+        </form>
+
+    </div>
+</section> 

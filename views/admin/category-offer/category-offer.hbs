@@ -1,0 +1,179 @@
+<section>
+    <div class="container align-items-center" style="padding-top: 4rem;">
+        <div class="justify-content-center d-flex">
+            <form id="CateOfferForm" >
+                <div class="col-md-12 text-center">
+                    <p class="text-primary">CATEGORY OFFER</p>
+                </div>
+                <div class="col-md-12 card-product pt-4">
+                    <div class="row">
+                        <div class="col-md-12 d-flex m-4">
+                            <div class="font-weight-bold text-uppercase mt-2">Offer Name :</div>
+                            <div class="ml-3">
+                                <input type="text" class="form-control col-md-6" name="offerType" value="category" />
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 d-flex m-4">
+                            <div class="font-weight-bold text-uppercase mt-2">Category :</div>
+                            <div class="ml-3 mt-2">
+                                <select name="offerItem" id="category" required="true">
+                                    <option value="selectcard">Select</option>
+                                    {{#each categories}}
+                                        <option
+                                            value="{{this.categoryName}}"
+                                           
+                                        >{{this.categoryName}}</option>
+                                    {{/each}}
+
+                                </select>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 d-flex m-4">
+                            <div class="font-weight-bold text-uppercase mt-2">Offer Percentage</div>
+                            <div class="ml-3">
+                                <input type="text" name="discount" class="form-control" required="true"/>
+                            </div>
+                        </div>
+                    </div>
+                    {{! <div class="row">
+          <div class="col-md-12 d-flex m-4">
+            <div class="font-weight-bold text-uppercase mt-2">Expiry</div>
+            <div class="ml-3">
+              <input class="form-control" id="exp_date" name="validity" type="date" required>
+              <small id="err2"></small>
+            </div>
+          </div>
+        </div> }}
+                    <div class="text-center mt-4 pb-4">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {{#if findCategoryOffer}}
+        <div class="d-flex justify-content-center mt-5">
+            <div class="col-md-12">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Type of Offer</th>
+                            <th>Offer Items</th>
+                            <th>Discount</th>
+                            {{! <th>Validity</th> }}
+                            <th>Actions</th>
+
+                        </tr>
+                    </thead>
+                    {{#each findCategoryOffer}}
+                        <tbody id="game-table">
+                            <tr>
+                                <!-- Here will be added the games -->
+                                <td>{{this.offerType}}</td>
+                                <td>{{this.offerItem}}</td>
+                                <td>{{this.discount}}</td>
+                                {{!-- <td>{{this.validity}}</td> --}}
+                                <td><a
+                                        onclick="deleteCatOffer('{{this._id}}','{{this.offerItem}}')"
+                                        class="btn btn-danger"
+                                    >delete</a></td>
+                            </tr>
+
+                        </tbody>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    {{/if}}
+</section>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+ 
+  //Delte category Offer
+
+  function deleteCatOffer(catOfferId, offerItem) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "/admin/deleteOffer",
+          method: "POST",
+          data: { catOfferId, offerItem },
+          success: (response) => {
+            if (response) {
+
+              swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              ).then(()=>{
+                  location.reload()
+              })
+            }
+          }
+        })
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+       
+      }
+    })
+  }
+
+
+  //Category form Submit
+
+  $('#CateOfferForm').submit((e) => {
+    e.preventDefault()
+    $.ajax({
+      url: '/admin/category-offer',
+      method: 'post',
+      data: $('#CateOfferForm').serialize(),
+      success: (response) => {
+        if (response.Exist) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'This category aready Exist!',
+            showConfirmButton: false,
+            timer: 2500
+          })
+        } else {
+          Swal.fire({
+            icon: 'success',
+            title: 'Offer Successfully Added !',
+            showConfirmButton: false,
+            timer: 2500
+          })
+          setTimeout(() => {
+            location.reload();
+          }, 2000)
+        }
+      }
+    })
+  })
+</script> 

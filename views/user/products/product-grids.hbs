@@ -1,0 +1,423 @@
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">Electro-Gen</h1>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-nav">
+                    <li><a href="/"><i class="lni lni-home"></i> Home</a></li>
+                    <li><a href="/">Shop</a></li>
+                    <li>Electro-Gen</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="product-grids section" style="margin-bottom: 50px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-12">
+
+                <div class="product-sidebar">
+
+                    <div class="single-widget search">
+                        <h3>Search Product</h3>
+                        <form action="/products/search" method="get">
+                            <input type="text" name="search" placeholder="Search Here..." />
+                            <button type="submit"><i class="lni lni-search-alt"></i></button>
+                        </form>
+                    </div>
+
+                    <div class="single-widget">
+                        <h3>All Categories</h3>
+                        <ul class="list">
+                            <li>
+                                <a href="/view-smartAndroidTvs">Smart Android TVs </a>
+                            </li>
+                            <li>
+                                <a href="/view-standardTvs">Standard TVs</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-9 col-12">
+                <div class="product-grids-head">
+                    <div class="product-grid-topbar">
+                        <div class="row align-items-center">
+                            <div class="col-lg-7 col-md-8 col-12">
+
+                                <div class="product-sorting">
+                                    <label for="sorting">Sort by:</label>
+                                    <select class="form-control" id="sorting">
+                                        <option selected>select option</option>
+                                        <option value="/low-to-high"> Low - High Price</option>
+                                        <option value="/high-to-low">High - Low Price</option>
+                                        <option value="/A-to-Z">A - Z Order</option>
+                                        <option value="/Z-to-A">Z - A Order</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            {{!-- <div class="col-lg-5 col-md-4 col-12">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <button
+                                            class="nav-link active"
+                                            id="nav-grid-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#nav-grid"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="nav-grid"
+                                            aria-selected="true"
+                                        ><i class="lni lni-grid-alt"></i></button>
+                                        <button
+                                            class="nav-link"
+                                            id="nav-list-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#nav-list"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="nav-list"
+                                            aria-selected="false"
+                                        ><i class="lni lni-list"></i></button>
+                                    </div>
+                                </nav>
+                            </div> --}}
+                        </div>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-grid" role="tabpanel" aria-labelledby="nav-grid-tab">
+                            <div class="row">
+                                {{#if newLaunches}}
+                                    {{#each newLaunches}}
+                                        <div class="col-lg-4 col-md-6 col-12">
+
+                                            <div class="single-product">
+                                                <div class="product-image">
+                                                    <img
+                                                        style="width: 209px; height: 125px;"
+                                                        class="mt-2 ml-3"
+                                                        src="/product-images/{{this._id}}.jpg"
+                                                        alt="sorry"
+                                                    />
+                                                    <div class="button">
+                                                        <a href="/add-tocart/{{this._id}}" class="btn"><i
+                                                                class="lni lni-cart"
+                                                            ></i>
+                                                            Add to Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info">
+                                                    <div class="text-right" style="margin-right: 14px;">
+
+                                                        <a
+                                                            href="#"
+                                                            class="btn btn-outline-danger btn-sm"
+                                                            onclick="addToWishlist(event,'{{this._id}}')"
+                                                        ><svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                width="16"
+                                                                height="16"
+                                                                fill="currentColor"
+                                                                class="bi bi-heart"
+                                                                viewBox="0 0 16 16"
+                                                            >
+                                                                <path
+                                                                    d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                                                                ></path>
+                                                            </svg></a>
+                                                    </div>
+                                                    <div class="text-center mt-2">
+                                                        <h4 class="title">
+                                                            <a
+                                                                href="/product-details/{{this._id}}"
+                                                            >{{this.product_name}}</a>
+                                                        </h4>
+
+                                                    </div>
+
+                                                    <ul class="review text-center">
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star"></i></li>
+                                                        <li><span>4.0 Review(s)</span></li>
+                                                    </ul>
+                                                    <div class="price text-center">
+                                                        {{!-- <span class="mt-1">₹{{this.Price}}</span> --}}
+                                                        <p class="card-text h5" style="font-size: 17px; color: black;">Rs.
+                                                            {{this.Price}}
+                                                            {{#if offer}}
+                                                                <span
+                                                                    style="font-size: 15px; color: rgb(105, 105, 105);"
+                                                                ><strike>Rs.{{this.OldPrice}}</strike></span>
+                                                                <span
+                                                                    style="font-size: 15px; color: rgb(175, 45, 12);"
+                                                                >({{this.offerPercentage}}% OFF)</span>
+                                                            {{/if}}</p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    {{/each}}
+                                {{/if}}
+
+                                <!--for smart-Android- tvs-->
+                                {{#if smartAndroidTvs}}
+                                    {{#each smartAndroidTvs}}
+                                        <div class="col-lg-4 col-md-6 col-12">
+
+                                            <div class="single-product">
+                                                <div class="product-image">
+                                                    <img
+                                                        style="width: 209px; height: 125px;"
+                                                        class="mt-2 ml-3"
+                                                        src="/product-images/{{this._id}}.jpg"
+                                                        alt="sorry"
+                                                    />
+                                                    <div class="button">
+                                                        <a href="/add-tocart/{{this._id}}" class="btn"><i
+                                                                class="lni lni-cart"
+                                                            ></i>
+                                                            Add to Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info">
+                                                    <div class="text-right" style="margin-right: 14px;">
+
+                                                        <a
+                                                            href="#"
+                                                            class="btn btn-outline-danger btn-sm"
+                                                            onclick="addToWishlist(event,'{{this._id}}')"
+                                                        ><svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                width="16"
+                                                                height="16"
+                                                                fill="currentColor"
+                                                                class="bi bi-heart"
+                                                                viewBox="0 0 16 16"
+                                                            >
+                                                                <path
+                                                                    d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                                                                ></path>
+                                                            </svg></a>
+                                                    </div>
+                                                    <div class="text-center mt-2">
+                                                        <h4 class="title">
+                                                            <a
+                                                                href="/product-details/{{this._id}}"
+                                                            >{{this.product_name}}</a>
+                                                        </h4>
+
+                                                    </div>
+
+                                                    <ul class="review text-center">
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star"></i></li>
+                                                        <li><span>4.0 Review(s)</span></li>
+                                                    </ul>
+                                                    <div class="price text-center">
+                                                        {{!-- <span class="mt-1">₹{{this.Price}}</span> --}}
+                                                        <p class="card-text h5" style="font-size: 17px; color: black;">Rs.
+                                                            {{this.Price}}
+                                                            {{#if offer}}
+                                                                <span
+                                                                    style="font-size: 15px; color: rgb(105, 105, 105);"
+                                                                ><strike>Rs.{{this.OldPrice}}</strike></span>
+                                                                <span
+                                                                    style="font-size: 15px; color: rgb(175, 45, 12);"
+                                                                >({{this.offerPercentage}}% OFF)</span>
+                                                            {{/if}}</p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    {{/each}}
+                                {{/if}}
+                                <!--for smart-Android- tvs-->
+                                {{#if standardTvs}}
+                                    {{#each standardTvs}}
+                                        <div class="col-lg-4 col-md-6 col-12">
+
+                                            <div class="single-product">
+                                                <div class="product-image">
+                                                    <img
+                                                        style="width: 209px; height: 125px;"
+                                                        class="mt-2 ml-3"
+                                                        src="/product-images/{{this._id}}.jpg"
+                                                        alt="sorry"
+                                                    />
+                                                    <div class="button">
+                                                        <a href="/add-tocart/{{this._id}}" class="btn"><i
+                                                                class="lni lni-cart"
+                                                            ></i>
+                                                            Add to Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info">
+                                                    <div class="text-right" style="margin-right: 14px;">
+
+                                                        <a
+                                                            href="#"
+                                                            class="btn btn-outline-danger btn-sm"
+                                                            onclick="addToWishlist(event,'{{this._id}}')"
+                                                        ><svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                width="16"
+                                                                height="16"
+                                                                fill="currentColor"
+                                                                class="bi bi-heart"
+                                                                viewBox="0 0 16 16"
+                                                            >
+                                                                <path
+                                                                    d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                                                                ></path>
+                                                            </svg></a>
+                                                    </div>
+                                                    <div class="text-center mt-2">
+                                                        <h4 class="title">
+                                                            <a
+                                                                href="/product-details/{{this._id}}"
+                                                            >{{this.product_name}}</a>
+                                                        </h4>
+
+                                                    </div>
+
+                                                    <ul class="review text-center">
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star-filled"></i></li>
+                                                        <li><i class="lni lni-star"></i></li>
+                                                        <li><span>4.0 Review(s)</span></li>
+                                                    </ul>
+                                                    <div class="price text-center">
+                                                        {{!-- <span class="mt-1">₹{{this.Price}}</span> --}}
+                                                        <p class="card-text h5" style="font-size: 17px; color: black;">Rs.
+                                                            {{this.Price}}
+                                                            {{#if offer}}
+                                                                <span
+                                                                    style="font-size: 15px; color: rgb(105, 105, 105);"
+                                                                ><strike>Rs.{{this.OldPrice}}</strike></span>
+                                                                <span
+                                                                    style="font-size: 15px; color: rgb(175, 45, 12);"
+                                                                >({{this.offerPercentage}}% OFF)</span>
+                                                            {{/if}}</p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    {{/each}}
+                                {{/if}}
+
+                            </div>
+                            {{!-- <div class="row">
+                                <div class="col-12">
+
+                                    <div class="pagination left">
+                                        <ul class="pagination-list">
+                                            <li><a href="javascript:void(0)">1</a></li>
+                                            <li class="active"><a href="javascript:void(0)">2</a></li>
+                                            <li><a href="javascript:void(0)">3</a></li>
+                                            <li><a href="javascript:void(0)">4</a></li>
+                                            <li><a href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div> --}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<a href="#" class="scroll-top">
+    <i class="lni lni-chevron-up"></i>
+</a>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+   function addToWishlist(event, proId) {
+	event.preventDefault()
+	$.ajax({
+		url: '/add-toWishlist',
+		data: {
+			proId: proId
+		},
+		method: 'post',
+		success: (response) => {
+			if (response.status) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Product added towishlist',
+					showConfirmButton: false,
+					timer: 1500
+				}).then(() => {
+					let wishlistCount = document.getElementById('wishlistCount');
+					wishlistCount.innerHTML = response.wishlistCount;
+				})
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Product already added to wishlist',
+					showConfirmButton: false,
+					timer: 1500
+				})
+			}
+		}
+	})
+}
+
+
+function sortLowTohigh (){
+    console.log("achu")
+    $.ajax({
+        url:'/low-to-high',
+        method:'get',
+        success:(response)=>{
+            if(response){
+
+            }
+        }
+
+    })
+    
+}
+
+</script> 
+
+<script>
+    $(function(){
+      // bind change event to select
+      $('#sorting').on('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              window.location = url; // redirect
+          }
+          return false;
+      });
+    });
+</script> 
