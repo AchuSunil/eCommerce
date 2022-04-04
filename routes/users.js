@@ -271,8 +271,9 @@ router.get("/view-wishlist", async (req, res) => {
                 let userWishlist = response;
                 let wishlistCount = req.session.wishlistCount;
                 let cartCount = req.session.cartCount;
+                let userLog = req.session.user;
 
-                res.render("user/account/mywhislist", { user: true, userWishlist, wishlistCount, cartCount });
+                res.render("user/account/mywhislist", { user: true, userWishlist,userLog, wishlistCount, cartCount });
             }
         });
     } else {
@@ -615,9 +616,9 @@ router.get("/editUserProfile", async (req, res) => {
         await userHelper.getUserDetails(req.session.user._id).then((userDetails) => {
             fs.readFile("./public/profilePicture/" + req.session.user._id + ".jpg", (err, data) => {
                 if (err) {
-                    res.render("user/account/userProfile", { user: true, userDetails, userLog, cartCount, wishlistCount });
+                    res.render("user/account/editUserProfile", { user: true, userDetails, userLog, cartCount, wishlistCount });
                 } else if (data) {
-                    res.render("user/account/userProfile", {
+                    res.render("user/account/editUserProfile", {
                         user: true,
                         userDetails,
                         userLog,

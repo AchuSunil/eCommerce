@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                 <span class="error_form" id="mob_error_message"></span>
+                                 <span class="error_form text-danger" id="mob_error_message"></span>
 
                                 <label for="reg-phone">Phone Number</label>
                                 {{! <div class="text-danger"> }}
@@ -303,93 +303,3 @@ $("#registration_form").submit(function () {
 
 });
 </script>
-
-{{! var resendbtn = document.getElementById('resendBtn')   
-      resendbtn.style.display="none";
-
-      var ttimer=  document.getElementById('timer')
-      ttimer.style.display="none";   
-
-      var timeleft=document.getElementById('timeleft')
-      timeleft.style.display='none';
-
-
-
-    function getOtp(event){ 
-                   event.preventDefault();
-                   document.querySelectorAll('.regInput').forEach(elem=> elem.disabled = true);
-                   document.getElementById('otpDisplay').style.display = 'block'; 
-                   var numotp=document.getElementById('reg-phone').value;
-
-        let timerOn = true;
-     function timer(remaining) {
-
-  var minute = Math.floor(remaining / 60);
-  var second = remaining % 60;
-  
-  minute = minute < 10 ? '0' + minute : minute;
-  second = second < 10 ? '0' + second : second;
-  document.getElementById('timer').innerHTML = minute + ':' + second;
-  var col=document.getElementById('timer');
-  col.style.color="#fc031c"
-
-    if(remaining != 0){
-       ttimer.style.display="inline" 
-       timeleft.style.display='inline' 
-
-  var resendbtn = document.getElementById('resendBtn')   
-  resendbtn.style.display="none"
-  }else {
-      var resendbtn = document.getElementById('resendBtn')   
-  resendbtn.style.display = "inline"
-  }
- 
-  
-  remaining -= 1;
-  
-  if(remaining >= 0 && timerOn) {
-    setTimeout(function() {
-        timer(remaining);
-    }, 1000);
-    return;
-   
-  }
-  
-  if(!timerOn) {
-    // Do validate stuff here
-    return;
-  }
-  
-  // Do timeout stuff here
-  alert('Timeout for otp');
-}
-
-
-
-
-        console.log(numotp)
-        
-        /* ajax call */
-      
-        $.ajax({
-        
-            url: "/send-OTP", 
-            type:'post',
-            dataType:'json',
-            data:{
-                num : numotp
-            },
-            success: function(result){
-      
-         if (result.status){   
-        
-             
-             timer(120);
-            
-
-            document.getElementById('regBtn').disabled = false;
-            
-         }
-  }
-});
-    } }}
