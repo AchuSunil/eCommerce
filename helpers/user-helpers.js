@@ -723,15 +723,7 @@ module.exports = {
             if (userWishlist !== null) {
                 let prodExist = userWishlist.products.findIndex((product) => product.proId == proId);
                 if (prodExist != -1) {
-                    resolve({ productAdded: false });
-                    db.get()
-                        .collection(collections.wishlist)
-                        .updateOne(
-                            { user: objectId(userId) },
-                            {
-                                $pull: { products: { proId: objectId(proId) } },
-                            }
-                        );
+                        resolve({ productAdded: false });
                 } else {
                     db.get()
                         .collection(collections.wishlist)

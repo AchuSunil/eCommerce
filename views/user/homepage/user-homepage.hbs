@@ -331,15 +331,22 @@
                
                 })
 				
-			} else {
+			} else if(response.status === false) {
 				Swal.fire({
 					icon: 'error',
-					title: 'Product removed from wishlist',
+					title: 'Product already added to wishlist',
 					showConfirmButton: false,
 					timer: 1500
 				})
 
-			}
+			}else{
+                Swal.fire({
+					icon: 'error',
+					title: 'Please Login!',
+					showConfirmButton: false,
+					timer: 1500
+				})
+            }
 		}
 	})
 

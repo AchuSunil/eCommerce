@@ -9,50 +9,47 @@ const { verifyLoginAdmin } = require("../config/middlewares");
 const { userInfo } = require("os");
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+router.get("/", async function (req, res, next) {
     if (req.session.admin) {
-        res.redirect("/admin/dashboard");
+        let totalUsersCount = await adminHelpers.getAllUsersCount();
+        let profit = await adminHelpers.getTotalProfit();
+        let totalOrders = await adminHelpers.getTotalOrderCount();
+        let totalProductCount = await adminHelpers.getTotalProductCount();
+        let products = await adminHelpers.getAllProducts();
+        let razorpayTotal = await adminHelpers.getRazorpayTotal();
+        let COD_Total = await adminHelpers.getCOD_Total();
+        let paypalTotal = await adminHelpers.getPaypalTotal();
+
+        res.render("admin/dashboard/admin-dashboard", {
+            admin: true,
+            totalUsersCount,
+            profit,
+            totalOrders,
+            totalProductCount,
+            products,
+            razorpayTotal,
+            COD_Total,
+            paypalTotal,
+        });
+    } else {
+        res.render("admin/login/admin_loginpage", { admin: true, login: true });
     }
-    res.render("admin/login/admin_loginpage", { admin: true, login: true });
 });
 
 //admin loggedin to Dashboard
 router.post("/login", function (req, res) {
-    console.log(req.body);
-
     adminHelpers.adminLogin(req.body).then(async (response) => {
         if (response.status) {
             req.session.admin = response.admin;
-
-            let totalUsersCount = await adminHelpers.getAllUsersCount();
-            let profit = await adminHelpers.getTotalProfit();
-            let totalOrders = await adminHelpers.getTotalOrderCount();
-            let totalProductCount = await adminHelpers.getTotalProductCount();
-            let products = await adminHelpers.getAllProducts();
-            let razorpayTotal = await adminHelpers.getRazorpayTotal();
-            let COD_Total = await adminHelpers.getCOD_Total();
-            let paypalTotal = await adminHelpers.getPaypalTotal();
-
-            res.render("admin/dashboard/admin-dashboard", {
-                admin: true,
-                totalUsersCount,
-                profit,
-                totalOrders,
-                totalProductCount,
-                products,
-                razorpayTotal,
-                COD_Total,
-                paypalTotal,
-            });
-        } else {
-            res.redirect("/admin");
+            res.redirect("/admin/dashboard");
         }
     });
 });
 
-//Dashboard Router
+// //Dashboard Router
 router.get("/dashboard", verifyLoginAdmin, (req, res) => {
-    res.render("admin/dashboard/admin-dashboard", { admin: true });
+    // res.render("admin/dashboard/admin-dashboard", { admin: true });
+    res.redirect('/admin')
 });
 
 ///logout router
@@ -387,28 +384,25 @@ router.post("/add-coupon", verifyLoginAdmin, (req, res) => {
         });
 });
 //Router for Sales Report
-router.get('/salesReport',verifyLoginAdmin, async (req, res) => {
-    let orderDetails = await adminHelpers.getSalesReport()
-    
-    res.render('admin/Sales-report/salesReport', { admin: true,orderDetails})
-})
+router.get("/salesReport", verifyLoginAdmin, async (req, res) => {
+    let orderDetails = await adminHelpers.getSalesReport();
+
+    res.render("admin/Sales-report/salesReport", { admin: true, orderDetails });
+});
 
 // router for sort the sales report with from and to date
-router.post('/salesreport/report',verifyLoginAdmin, async (req, res) => {
-  
+router.post("/salesreport/report", verifyLoginAdmin, async (req, res) => {
     let salesReport = await adminHelpers.salesReportGet(req.body.from, req.body.to);
-    console.log(salesReport,'//////salesreport');
-   
-    res.json({ report: salesReport })
-})
+    console.log(salesReport, "//////salesreport");
+
+    res.json({ report: salesReport });
+});
 
 //router for sort the sales report on monthly view
-router.post('/salesreport/monthlyreport',verifyLoginAdmin,async(req, res) => {
- 
+router.post("/salesreport/monthlyreport", verifyLoginAdmin, async (req, res) => {
+    let singleReport = await adminHelpers.getNewSalesReport(req.body.type);
 
-    let singleReport = await adminHelpers.getNewSalesReport(req.body.type)
-    
-    res.json({ wmyreport: singleReport })
-})
+    res.json({ wmyreport: singleReport });
+});
 
 module.exports = router;

@@ -329,21 +329,7 @@
                                 {{/if}}
 
                             </div>
-                            {{!-- <div class="row">
-                                <div class="col-12">
-
-                                    <div class="pagination left">
-                                        <ul class="pagination-list">
-                                            <li><a href="javascript:void(0)">1</a></li>
-                                            <li class="active"><a href="javascript:void(0)">2</a></li>
-                                            <li><a href="javascript:void(0)">3</a></li>
-                                            <li><a href="javascript:void(0)">4</a></li>
-                                            <li><a href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                            </div> --}}
+                           
                         </div>
 
                     </div>
@@ -358,66 +344,84 @@
 </a>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 <script>
    function addToWishlist(event, proId) {
-	event.preventDefault()
-	$.ajax({
-		url: '/add-toWishlist',
-		data: {
-			proId: proId
-		},
-		method: 'post',
-		success: (response) => {
-			if (response.status) {
-				Swal.fire({
-					icon: 'success',
-					title: 'Product added towishlist',
-					showConfirmButton: false,
-					timer: 1500
-				}).then(() => {
-					let wishlistCount = document.getElementById('wishlistCount');
-					wishlistCount.innerHTML = response.wishlistCount;
-				})
-			} else {
-				Swal.fire({
-					icon: 'error',
-					title: 'Product already added to wishlist',
-					showConfirmButton: false,
-					timer: 1500
-				})
-			}
-		}
-	})
+
+
+    event.preventDefault()
+    $.ajax({
+        url: '/add-toWishlist',
+        data: {
+            proId: proId
+        },
+        method: 'post',
+        success: (response) => {
+            if (response.status) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Product added towishlist',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    let wishlistCount = document.getElementById('wishlistCount');
+                    wishlistCount.innerHTML = response.wishlistCount;
+                })
+            } else if (response.status === false) {
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Product already added to wishlist',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Please login!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+            }
+        }
+    })
 }
 
 
-function sortLowTohigh (){
+
+
+function sortLowTohigh() {
     console.log("achu")
     $.ajax({
-        url:'/low-to-high',
-        method:'get',
-        success:(response)=>{
-            if(response){
+        url: '/low-to-high',
+        method: 'get',
+        success: (response) => {
+            if (response) {
 
             }
         }
 
     })
-    
+
 }
 
+$(function() {
+
+    $('#sorting').on('change', function() {
+        var url = $(this).val();
+        if (url) {
+            window.location = url;
+        }
+        return false;
+    });
+});
+
+
+ 
 </script> 
 
-<script>
-    $(function(){
-      // bind change event to select
-      $('#sorting').on('change', function () {
-          var url = $(this).val(); // get selected value
-          if (url) { // require a URL
-              window.location = url; // redirect
-          }
-          return false;
-      });
-    });
-</script> 
+ 

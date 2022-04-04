@@ -252,7 +252,7 @@ router.post("/add-toWishlist", (req, res) => {
                 if (response.productAdded) {
                     res.json({ status: true, wishlistCount });
                 } else {
-                    res.json({ status: false, wishlistCount });
+                    res.json({ status: false });
                 }
             });
         });
@@ -831,7 +831,15 @@ router.get("/products/search", async (req, res) => {
         }
 
         req.session.smartAndroidTvs = smartAndroidTvs;
-        res.render("user/products/product-grids", { user: true, smartAndroidTvs });
+        if(req.session.user){
+            let userLog = req.session.user;
+            let cartCount = req.session.cartCount;
+            let wishlistCount = req.session.wishlistCount;
+            res.render("user/products/product-grids", { user: true, smartAndroidTvs,userLog,cartCount,wishlistCount });
+        }else{
+            res.render("user/products/product-grids", { user: true, smartAndroidTvs });
+        }
+        
     } catch (err) {
         res.render("user/products/product-grids", { user: true, smartAndroidTvs: [] });
     }
