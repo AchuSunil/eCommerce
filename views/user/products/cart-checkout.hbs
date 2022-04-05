@@ -91,13 +91,13 @@
                 <div class="col-lg-4">
                     <div class="checkout-sidebar mt-5">
                       {{#if applied}}
-                       <button type="button" id="addCoupon" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button" onclick="delete_coupon()" class="btn btn-danger">Delete Coupon</button>
+                        {{else}}
+                        <button type="button" id="addCoupon" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Add Coupons
                         </button>
-                        {{/if}}
-
-                        <button type="button" onclick="delete_coupon()" class="btn btn-danger">Delete Coupon</button>
-
+                      
+                          {{/if}}
 
                         <div class="checkout-sidebar-price-table mt-30" style="margin-bottom: 40px;">
                             <div class="text-center">

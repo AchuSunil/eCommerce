@@ -222,6 +222,7 @@ router.get("/cart-details", async (req, res) => {
         let cartCount = await userHelper.getCartCount(req.session.user._id);
         req.session.cartCount = cartCount;
         let cartProducts = await userHelper.getCartProducts(req.session.user._id);
+        console.log(cartProducts,'//////cartProducts');
         let wishlistCount = req.session.wishlistCount;
 
         let totalAmt = 0;
@@ -351,8 +352,10 @@ router.get("/getCheckout", async (req, res) => {
             let viewAddress = await userHelper.getAllAddress(req.session.user._id);
 
             let cartProducts = await userHelper.getCartProducts(req.session.user._id);
+           
             let coupon = await userHelper.getAllCoupons();
             let userCart = await userHelper.getCart(req.session.user._id);
+          
 
             if (userCart.coupon) {
                 let val = parseInt(totalAmt.price);
@@ -361,9 +364,13 @@ router.get("/getCheckout", async (req, res) => {
                 totalAmt.discount = parseInt((userCart.discount * val) / 100);
 
                 await userHelper.updateCart(req.session.user._id, totalAmt.final, totalAmt.discount);
+                applied = true;
+            }else{
+                applied = false;
             }
             let amount = await userHelper.getCart(req.session.user._id);
-            let applied = amount.applied;
+          
+           
 
             totalAmt.tot = amount.finalPrice ? amount.finalPrice : totalAmt.price;
             totalAmt.dis = amount.discount ? amount.discount : 0;
@@ -469,8 +476,8 @@ router.post("/place-order", async (req, res) => {
                         payment_method: "paypal",
                     },
                     redirect_urls: {
-                        return_url: "http://localhost:3000/paypalSuccess",
-                        cancel_url: "http://localhost:3000/cancel",
+                        return_url: "https://electrogen.tk/paypalSuccess",
+                        cancel_url: "https://electrogen.tk/cancel",
                     },
                     transactions: [
                         {

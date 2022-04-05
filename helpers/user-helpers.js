@@ -908,7 +908,7 @@ module.exports = {
                 .collection(collections.cart)
                 .updateOne(
                     { user: objectId(userId) },
-                    { $unset: { coupon: 1, discount: 1, finalPrice: 1 }, $set: { applied: true } }
+                    { $unset: { coupon: 1, discount: 1, finalPrice: 1 } }
                 )
                 .then(() => {
                     resolve();
@@ -945,7 +945,7 @@ module.exports = {
                             finalPrice: final,
                             discount: discount,
                             couponApplied: false,
-                            applied: false,
+                            // applied: false,
                         },
                     }
                 )
