@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <form action="/edituseraddress" method="post">
+                <form id="registration_form" action="/edituseraddress" method="post">
                     <div class="checkout-steps-form-style-1">
                         <ul id="accordionExample">
                             <li>
@@ -51,10 +51,13 @@
                                         <div class="col-md-6">
                                             <div class="single-form form-default">
                                                 <label>Phone Number</label>
+                                                 <span style="margin-left: 10px;" class="error_form text-danger" id="mob_error_message"></span>
                                                 <div class="form-input form">
                                                     <input
                                                         type="text"
                                                         name="phoneNumber"
+                                                        id="form_mob" 
+                                                        onchange="check_mob()"
                                                         value="{{addressDetails.phoneNumber}}"
                                                     />
                                                 </div>
@@ -97,9 +100,11 @@
                                                 <button class="btn" type="submit">
                                                     Update
                                                 </button>
+                                                <a href="#" style="background-color: red;" class="btn ml-2" onclick="cancelUpdate(event)" > Cancel</a>
                                             </div>
+                                            
                                         </div>
-                                    </div>
+                                    </div> 
                                 </section>
                             </li>
 
@@ -111,3 +116,66 @@
         </div>
     </div>
 </section>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+      function cancelUpdate(event){
+        event.preventDefault();
+         Swal.fire({
+        title: 'Confirm YES !',
+        text: "To Cancel the Updations",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'YES'
+    }).then((result)=>{
+        if(result.isConfirmed){
+            window.location ='/userAddress'
+        }
+    })
+    }  
+</script>
+<script>
+    $("#mob_error_message").hide()
+
+    var error_mobno = false;
+
+    $("#form_mob").focusout(function () {
+     check_mob();
+     });
+
+     function check_mob() {
+         var pattern = /([0-9]{10})|(\([0-9]{3}\)\s+[0-9]{3}\-[0-9]{4})/;
+         var mob = $("#form_mob").val();
+         if (pattern.test(mob) && mob !== '' && mob.length == 10) {
+           $("#mob_error_message").hide();
+           $("#form_mob").css("border-bottom", "2px solid #34F458");
+           } else {
+            $("#mob_error_message").html("Invalid Mobile NO");
+            $("#mob_error_message").show();
+            $("#form_mob").css("border-bottom", "2px solid #F90A0A");
+            error_mobno = true;
+           
+          }
+        }
+
+
+$("#registration_form").submit(function (event) {
+
+  error_mobno = false;
+
+
+ 
+  check_mob();
+ 
+
+  if (error_mobno === true) {
+
+    event.preventDefault()
+  } 
+
+
+});
+     
+         
+</script>

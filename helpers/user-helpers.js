@@ -822,7 +822,7 @@ module.exports = {
                     .deleteOne({ _id: objectId(wishlistId) });
                 resolve({ removeProduct: true });
             } else {
-                db.get()
+                db.get() 
                     .collection(collections.wishlist)
                     .updateOne(
                         { _id: objectId(wishlistId) },

@@ -460,7 +460,7 @@ router.post("/place-order", async (req, res) => {
         userHelper.placeOrder(req.body, products, total).then((orderId) => {
             req.session.orderId = orderId;
             if (req.body.Payment == "COD") {
-                res.json({ COD_Success: true });
+                res.json({ COD_Success: true }); 
             } else if (req.body.Payment == "Razorpay") {
                 userHelper.generateRazorpay(orderId, total).then((order) => {
                     res.json({ razorpay: true, order });
